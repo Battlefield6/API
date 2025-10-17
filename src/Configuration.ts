@@ -43,7 +43,7 @@ export default class Configuration {
         return this.package;
     }
 
-    public getURL(path?: string): string {
-        return `https://${this.service}.${this.domain}/${this.package}/${path}`;
+    public getURL(path?: string, packages?: string): string {
+        return `https://${this.service}.${this.domain}/${packages || this.package}/${path}`;
     }
 }

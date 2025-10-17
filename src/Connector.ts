@@ -4,6 +4,7 @@
  */
 
 import Configuration from './Configuration';
+import Authentication from './backends/Authentication';
 import Blueprint from './backends/Blueprint';
 import Experience from './backends/Experience';
 import PlayElement from './backends/PlayElement';
@@ -14,6 +15,7 @@ export default class Connector {
     private readonly config: Configuration;
 
     /* Backends */
+    private readonly authentication: Authentication;
     private readonly blueprints: Blueprint;
     private readonly playElements: PlayElement;
     private readonly experiences: Experience;
@@ -23,6 +25,7 @@ export default class Connector {
         this.config     = config;
 
         /* Register Backends */
+        this.authentication = new Authentication(this);
         this.blueprints     = new Blueprint(this);
         this.playElements   = new PlayElement(this);
         this.experiences    = new Experience(this);
@@ -48,14 +51,19 @@ export default class Connector {
     public getMod(): Mod {
         return this.mods;
     }
+
+    public getAuthentication(): Authentication {
+        return this.authentication;
+    }
 }
 
-const instance: Connector           = new Connector();
-const config: Configuration         = instance.getConfig();
-const blueprint: Blueprint          = instance.getBlueprint();
-const playElements: PlayElement     = instance.getPlayElement();
-const experiences: Experience       = instance.getExperience();
-const mods: Mod                     = instance.getMod();
+const instance: Connector               = new Connector();
+const config: Configuration             = instance.getConfig();
+const authentication: Authentication    = instance.getAuthentication();
+const blueprint: Blueprint              = instance.getBlueprint();
+const playElements: PlayElement         = instance.getPlayElement();
+const experiences: Experience           = instance.getExperience();
+const mods: Mod                         = instance.getMod();
 
 export {
     /* Main */
@@ -67,6 +75,7 @@ export {
     PublishState,
 
     /* Backends */
+    authentication as Authentication,
     blueprint as Blueprint,
     playElements as PlayElement,
     experiences as Experience,

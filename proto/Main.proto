@@ -4,6 +4,10 @@ package santiago.web.play;
 
 import "google/protobuf/timestamp.proto";
 import "enum/PublishState.proto";
+import "models/Player.proto";
+import "models/Empty.proto";
+import "models/ProtocolVersionOverride.proto";
+import "models/TimeTravel.proto";
 import "models/BlueprintId.proto";
 import "models/StringValue.proto";
 import "models/PlayElementDesign.proto";
@@ -50,6 +54,44 @@ service WebPlay {
   rpc GetAvailableTags(GetAvailableTagsRequest) returns (GetAvailableTagsResponse);
   rpc DeleteAttachments(DeleteAttachmentsRequest) returns (DeleteAttachmentsResponse);
 }
+
+service WebAuthentication {
+    rpc viaAuthCode(AuthCodeAuthentication) returns (AuthenticationResponse);
+    rpc logout(Empty) returns (Empty);
+}
+
+
+enum Platform {
+  UNKNOWN = 0;
+  /** PC - EA App */
+  PC = 1;
+  PS4 = 2;
+  XBOXONE = 3;
+  PS5 = 4;
+  XBSX = 5;
+  /** COMMON - Used for requests that includes a cross-platform payload */
+  COMMON = 6;
+  STEAM = 7;
+}
+
+message AuthCodeAuthentication {
+  string authCode = 1;
+  Platform platform = 2;
+  optional string redirectUri = 3;
+  optional string patchVersion  = 4; 
+  optional string protocolVersion = 5;
+}
+
+message AuthenticationResponse {
+  string sessionId = 1;
+  optional Player player = 2;
+  optional TimeTravel timeTravel = 3;
+  optional ProtocolVersionOverride protocolVersionOverride = 4;
+  string patchVersion  = 5; 
+}
+
+
+
 
 // Composite Responses
 message PlayElementResponse {
