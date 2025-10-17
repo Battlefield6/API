@@ -112,7 +112,7 @@ import { PublishState } from './generated/enum/PublishState';
 ```
 
 ### Delete a `PlayElement`
-> ![WARNING]
+> [!WARNING]
 > This method is not "really" a delete method for a PlayElement, it will not deteled, it will archived internally and get the State `PublishState.ARCHIVED`!
 ```ts
 import {
