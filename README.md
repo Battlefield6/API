@@ -3,7 +3,7 @@ This is an basic API to work with **DICE**'s Portal-Server (`Battlefield 6`).
 
 ## Configuration
 Before you start, set the current `sessionId` at the configuration, otherwise you will get an **Exception**:
-> ddd
+> **SessionException [Error]:** The request does not have valid authentication credentials for the operation.
 ```ts
 Configuration.setSession('web-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx');
 ```
@@ -12,7 +12,7 @@ Configuration.setSession('web-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx');
 > npm install
 
 ## Building
-> npm run roto:generate
+> npm run proto:generate
 
 ## Examples
 ### List all `Blueprints`
