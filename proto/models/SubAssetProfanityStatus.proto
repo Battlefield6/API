@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package santiago.web.play;
+
+message SubAssetProfanityStatus {
+   int32 externalDataSourceId = 1;
+   string assetId = 2;
+   string nonce = 3;
+   int32 profanityStatus = 4;
+   string profanityReason = 5;
+}

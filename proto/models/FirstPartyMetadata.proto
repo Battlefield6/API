@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+package santiago.web.play;
+
+message FirstPartyMetadata {
+   uint32 psnMetadata = 1;
+}

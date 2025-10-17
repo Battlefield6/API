@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package santiago.web.play;
+
+message Blueprint {
+   repeated uint32 blueprintId = 1;
+   string name = 2;
+   uint32 availableGameData = 3;
+   uint32 availableTags = 4;
+   uint32 availableProgressionModeTags = 5;
+}

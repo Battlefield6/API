@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+package santiago.web.play;
+
+message DesignMetadata {
+   repeated uint32 progressionMode = 1;
+}

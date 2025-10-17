@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+package santiago.web.play;
+import "models/ProgressionEntry.proto";
+message GetProgressionTypesRequest {
+   repeated ProgressionEntry entries = 1;
+}

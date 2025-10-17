@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package santiago.web.play;
+
+enum RotationBehavior {
+    UNSPECIFIED = 0; 
+    SEQUENTIAL = 1;
+    RANDOM = 2;
+    WEIGHTED = 3;
+}

@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package santiago.web.play;
+
+enum ProcessingStatus {
+    UNSPECIFIED = 0;
+    PENDING = 1;
+    PROCESSED = 2;
+    NEEDS_RECOMPILE = 3;
+    ERROR = 4;
+    UNRECOGNIZED = -1;
+}

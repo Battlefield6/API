@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package santiago.web.play;
+
+message AvailableMapEntry {
+   string levelName = 1;
+   string levelLocation = 2;
+   uint32 gameSize = 3;
+   uint32 rounds = 4;
+   uint32 allowedSpectators = 5;
+   uint32 metadata = 6;
+   uint32 allowedTeamsRange = 7;
+}

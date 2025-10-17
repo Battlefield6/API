@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+package santiago.web.play;
+import "models/EnrichedPlayElement.proto";
+message GetOwnedPlayElementsResponseV2 {
+   repeated EnrichedPlayElement playElements = 1;
+}

@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+package santiago.web.play;
+
+message SparseIntValues {
+   repeated int32 values = 1;
+}

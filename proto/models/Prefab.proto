@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package santiago.web.play;
+
+message Prefab {
+   string prefabInstance = 1;
+   string prefabPartition = 2;
+   string prefabType = 3;
+   string gemInstance = 4;
+   string gemPartition = 5;
+   string gemType = 6;
+}

@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package santiago.web.play;
+import "models/AvailableMapEntry.proto";
+message AvailableGameData {
+   repeated uint32 modRules = 1;
+   repeated AvailableMapEntry maps = 2;
+   uint32 assetCategories = 4;
+   uint32 spatialAssetInfo = 5;
+}

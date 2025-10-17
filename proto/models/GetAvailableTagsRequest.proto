@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+package santiago.web.play;
+
+message GetAvailableTagsRequest {
+   uint32 availableTags = 1;
+}

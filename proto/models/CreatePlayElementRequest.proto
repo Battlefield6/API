@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package santiago.web.play;
+
+import "models/StringValue.proto";
+import "models/DesignMetadata.proto";
+import "models/MapRotation.proto";
+import "models/Mutator.proto";
+import "models/AssetCategory.proto";
+import "models/PlayElementSettings.proto";
+import "models/PublishState.proto";
+import "models/Attachment.proto";
+
+message CreatePlayElementRequest {
+   repeated string name = 1;
+   StringValue description = 2;
+   DesignMetadata designMetadata = 3;
+   MapRotation mapRotation = 4;
+   repeated Mutator mutators = 5;
+   repeated AssetCategory assetCategories = 6;
+   bytes originalModRules = 7;
+   PlayElementSettings playElementSettings = 9;
+   PublishState publishState = 10;
+   StringValue modLevelDataId = 11;
+   StringValue thumbnailUrl = 12;
+   Attachment attachments = 13;
+}

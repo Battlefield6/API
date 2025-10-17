@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package santiago.web.play;
+
+enum PublishState {
+  INVALID = 0;
+  DRAFT = 1;
+  PUBLISHED = 2;
+  ARCHIVED = 3;
+  ERROR = 4;
+  UNRECOGNIZED = -1;
+}

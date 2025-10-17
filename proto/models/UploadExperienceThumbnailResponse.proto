@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package santiago.web.play;
+
+message UploadExperienceThumbnailResponse {
+   string assetId = 1;
+   string url = 2;
+   string verificationUrl = 3;
+}

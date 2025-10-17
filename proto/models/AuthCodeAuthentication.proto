@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package santiago.web.play;
+
+message AuthCodeAuthentication {
+   string authCode = 1;
+   int32 platform = 2;
+   uint32 redirectUri = 3;
+   uint32 patchVersion = 4;
+   uint32 protocolVersion = 5;
+}

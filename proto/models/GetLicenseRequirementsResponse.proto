@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+package santiago.web.play;
+import "models/MapEntryRequirement.proto";
+message GetLicenseRequirementsResponse {
+   repeated string ownedLicenses = 1;
+   repeated MapEntryRequirement mapEntryRequirements = 2;
+}

@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package santiago.web.play;
+
+message PlayExperienceQuery {
+   repeated uint32 playerCreatorEq = 1;
+   repeated string levelLocationsEq = 2;
+   repeated int32 maxPlayerCountEq = 3;
+   repeated string tagsEq = 4;
+   int32 ordering = 8;
+   int32 pageSize = 9;
+   uint32 namePrefix = 10;
+   uint32 shortCode = 11;
+}

@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package santiago.web.play;
+
+message Creator {
+   uint32 internalCreator = 1;
+   uint32 playerCreator = 2;
+   uint32 externalCreator = 3;
+   uint32 trustedCreator = 4;
+}

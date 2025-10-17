@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+package santiago.web.play;
+
+message MutatorSparseIntEntry {
+   uint32 index = 1;
+   int32 value = 2;
+}

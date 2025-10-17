@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+package santiago.web.play;
+import "models/BlueprintId.proto";
+message GetScheduledBlueprintsRequest {
+   repeated BlueprintId blueprintIds = 1;
+}

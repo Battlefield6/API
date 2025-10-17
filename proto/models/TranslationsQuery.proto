@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package santiago.web.play;
+
+message TranslationsQuery {
+   uint32 sidList = 1;
+   uint32 categoryIdList = 2;
+   uint32 subCategoryIdList = 3;
+}

@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package santiago.web.play;
+
+message PlayElementResponse {
+   uint32 playElement = 1;
+   uint32 playElementDesign = 2;
+   uint32 progressionMode = 3;
+}

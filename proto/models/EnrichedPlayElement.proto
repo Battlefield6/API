@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package santiago.web.play;
+
+import "models/PlayElement.proto";
+import "models/MapRotation.proto";
+
+message EnrichedPlayElement {
+   PlayElement playElement = 1;
+   MapRotation mapRotation = 2;
+}

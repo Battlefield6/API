@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+package santiago.web.play;
+import "models/InternalTeamStructure.proto";
+message TeamComposition {
+   repeated int32 balancingMethod = 1;
+   repeated InternalTeamStructure internalTeams = 2;
+}

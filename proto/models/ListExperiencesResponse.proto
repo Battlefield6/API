@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+package santiago.web.play;
+
+message ListExperiencesResponse {
+   repeated uint32 nextPage = 1;
+}

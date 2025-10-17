@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+package santiago.web.play;
+
+message AssetCategoryBoolean {
+   repeated bool defaultValue = 1;
+   uint32 overrides = 2;
+}

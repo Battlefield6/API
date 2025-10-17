@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package santiago.web.play;
+
+message BlazeGameSettings {
+   int32 joinInProgress = 1;
+   int32 openToJoinByPlayer = 2;
+   int32 openToInvites = 3;
+}

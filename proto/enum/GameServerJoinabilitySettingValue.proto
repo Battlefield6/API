@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package santiago.web.play;
+
+enum GameServerJoinabilitySettingValue {
+    UNSPECIFIED = 0;
+    ALLOWED = 1;
+    DISALLOWED = 2;
+    UNRECOGNIZED = -1;
+}

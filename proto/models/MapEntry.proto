@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package santiago.web.play;
+
+message MapEntry {
+   repeated string levelName = 1;
+   string levelLocation = 2;
+   int32 rounds = 3;
+   int32 allowedSpectators = 4;
+   uint32 teamComposition = 5;
+   uint32 blazeGameSettings = 6;
+   uint32 gameServerJoinabilitySettings = 7;
+}

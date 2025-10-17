@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+package santiago.web.play;
+
+message AssetCategory {
+   string tagId = 1;
+   uint32 boolean = 2;
+}

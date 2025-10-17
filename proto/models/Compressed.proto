@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package santiago.web.play;
+
+message Compressed {
+   bytes compiledModRules = 1;
+   int32 rulesVersion = 2;
+   int32 inflatedSize = 3;
+}

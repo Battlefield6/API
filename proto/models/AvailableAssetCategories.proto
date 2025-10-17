@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+package santiago.web.play;
+import "models/AvailableAssetCategoryTag.proto";
+message AvailableAssetCategories {
+   repeated AvailableAssetCategoryTag rootTags = 1;
+   repeated AvailableAssetCategoryTag tags = 2;
+}

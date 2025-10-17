@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+package santiago.web.play;
+
+message ErrorModRules {
+   bytes original = 1;
+   uint32 errorMessage = 2;
+}

@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+package santiago.web.play;
+
+message ResourceLocation {
+   string ref = 1;
+   string url = 2;
+}

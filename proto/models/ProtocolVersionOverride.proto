@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package santiago.web.play;
+
+message ProtocolVersionOverride {
+   string original = 1;
+   string overridden = 2;
+   int32 reason = 3;
+}

@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package santiago.web.play;
+
+message AvailableTag {
+   string id = 1;
+   uint32 metadata = 2;
+   uint32 category = 3;
+}

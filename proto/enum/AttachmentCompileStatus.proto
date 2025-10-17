@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package santiago.web.play;
+
+
+enum AttachmentCompileStatus {
+    UNSPECIFIED = 0;
+    OK = 1;
+    ERROR = 2;
+    INCOMPATIBLE_VERSION = 3;
+    UNRECOGNIZED = -1;
+}

@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package santiago.web.play;
+import "google/protobuf/timestamp.proto";
+message CreateModDataVersionResponse {
+   string signedUrl = 1;
+   google.protobuf.Timestamp validUntil = 2;
+   string modLevelDataId = 3;
+}

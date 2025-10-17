@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package santiago.web.play;
+
+enum AttachmentType {
+    UNSPECIFIED = 0;
+    SPATIAL = 1;
+    SCRIPT = 2;
+    SCRIPT_DATA = 3;
+    STRINGS = 4;
+    MP_DATA = 5;
+    UNRECOGNIZED = -1;
+}

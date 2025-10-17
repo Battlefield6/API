@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package santiago.web.play;
+import "google/protobuf/timestamp.proto";
+message GetTranslationsRequest {
+   uint32 translationsQuery = 1;
+   string locale = 2;
+   google.protobuf.Timestamp fetchFrom = 3;
+}

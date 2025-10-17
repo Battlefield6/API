@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package santiago.web.play;
+
+message AvailableMutator {
+   string name = 1;
+   string category = 2;
+   uint32 kind = 3;
+   uint32 metadata = 4;
+   string id = 5;
+}

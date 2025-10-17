@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+package santiago.web.play;
+
+message MapRotation {
+   repeated uint32 attributes = 1;
+}

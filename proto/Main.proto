@@ -1,0 +1,214 @@
+syntax = "proto3";
+
+package santiago.web.play;
+
+import "google/protobuf/timestamp.proto";
+import "enum/PublishState.proto";
+import "models/BlueprintId.proto";
+import "models/StringValue.proto";
+import "models/PlayElementDesign.proto";
+import "models/PlayElementSettings.proto";
+import "models/Pagination.proto";
+import public "models/PlayExperienceQuery.proto";
+import "models/AvailableTags.proto";
+import "models/MapEntryRequirement.proto";
+import "models/ProgressionEntry.proto";
+import "models/PlayElement.proto";
+import "models/PlayExperience.proto";
+import "models/Blueprint.proto";
+import "models/ModDataVersion.proto";
+import "models/DesignMetadata.proto";
+import "models/MapRotation.proto";
+import "models/AssetCategory.proto";
+import "models/Mutator.proto";
+import "models/Attachment.proto";
+
+service WebPlay {
+  /* Blueprints */
+  rpc getBlueprintsById(GetBlueprintsByIdRequest) returns (GetBlueprintsByIdResponse);
+  rpc getScheduledBlueprints(GetScheduledBlueprintsRequest) returns (GetScheduledBlueprintsResponse);
+
+  /* PlayElement */
+  rpc createPlayElement(CreatePlayElementRequest) returns (PlayElementResponse);                          // ✅
+  rpc getPlayElement(GetPlayElementRequest) returns (PlayElementResponse);                                // ✅
+  rpc updatePlayElement(UpdatePlayElementRequest) returns (PlayElementResponse);                          // ✅
+  rpc deletePlayElement(DeletePlayElementRequest) returns (DeletePlayElementResponse);                    // ✅
+  rpc getOwnedPlayElements(GetOwnedPlayElementsRequest) returns (GetOwnedPlayElementsResponse);           // ✅
+  rpc getOwnedPlayElementsV2(GetOwnedPlayElementsRequest) returns (GetOwnedPlayElementsResponseV2);       // ✅
+
+  /* MOD */
+  rpc createModDataVersion(CreateModDataVersionRequest) returns (CreateModDataVersionResponse);
+  rpc listModDataVersions(ListModDataVersionsRequest) returns (ListModDataVersionsResponse);
+
+  /* Experience */
+  rpc ListExperiences(ListExperiencesRequest) returns (ListExperiencesResponse);
+  rpc UploadExperienceThumbnail(UploadExperienceThumbnailRequest) returns (UploadExperienceThumbnailResponse);
+
+  /* Other */
+  rpc GetProgressionTypes(GetProgressionTypesRequest) returns (GetProgressionTypesResponse);
+  rpc GetLicenseRequirements(GetLicenseRequirementsRequest) returns (GetLicenseRequirementsResponse);
+  rpc GetAvailableTags(GetAvailableTagsRequest) returns (GetAvailableTagsResponse);
+  rpc DeleteAttachments(DeleteAttachmentsRequest) returns (DeleteAttachmentsResponse);
+}
+
+// Composite Responses
+message PlayElementResponse {
+    PlayElement playElement = 1;
+    PlayElementDesign playElementDesign = 2;
+    StringValue progressionMode = 3;
+}
+
+message GetOwnedPlayElementsResponseV2 {
+  repeated PlayElement playElement = 1;
+}
+
+// Requests & other Responses
+message BasePlayElementResponse {
+  PlayElement playElement = 1;
+  PlayElementDesign playElementDesign = 2;
+  StringValue progressionMode = 3;
+}
+
+message BaseCreatePlayElementRequest {
+  string name = 1;
+  StringValue description = 2;
+  DesignMetadata designMetadata = 3;
+  MapRotation mapRotation = 4;
+  repeated Mutator mutators = 5;
+  repeated AssetCategory assetCategories = 6;
+  bytes originalModRules = 7;
+  PlayElementSettings playElementSettings = 9;
+  PublishState publishState = 10;
+  StringValue modLevelDataId = 11;
+  StringValue thumbnailUrl = 12;
+  repeated Attachment attachments = 13;
+}
+
+message CreatePlayElementRequest {
+  string name = 1;
+  StringValue description = 2;
+  DesignMetadata designMetadata = 3;
+  MapRotation mapRotation = 4;
+  repeated Mutator mutators = 5;
+  repeated AssetCategory assetCategories = 6;
+  bytes originalModRules = 7;
+  PlayElementSettings playElementSettings = 9;
+  PublishState publishState = 10;
+  StringValue modLevelDataId = 11;
+  StringValue thumbnailUrl = 12;
+  repeated Attachment attachments = 13;
+}
+
+message GetPlayElementRequest {
+  string id = 1;
+  bool includeDenied = 2;
+}
+
+message UpdatePlayElementRequest {
+  string name = 1;
+  StringValue description = 2;
+  DesignMetadata designMetadata = 3;
+  MapRotation mapRotation = 4;
+  repeated Mutator mutators = 5;
+  repeated AssetCategory assetCategories = 6;
+  bytes originalModRules = 7;
+  PlayElementSettings playElementSettings = 9;
+  PublishState publishState = 10;
+  StringValue modLevelDataId = 11;
+  StringValue thumbnailUrl = 12;
+  repeated Attachment attachments = 13;
+}
+
+message DeletePlayElementRequest {
+  string playElementId = 1;
+}
+
+message DeletePlayElementResponse {}
+
+message GetOwnedPlayElementsRequest {
+  repeated PublishState publishStates = 1;
+  bool includeDenied = 2;
+}
+
+message GetOwnedPlayElementsResponse {
+  repeated PlayElement playElements = 1;
+}
+
+message GetBlueprintsByIdRequest {
+  repeated BlueprintId blueprintIds = 1;
+}
+
+message GetBlueprintsByIdResponse {
+  repeated Blueprint blueprints = 1;
+}
+
+message GetScheduledBlueprintsRequest {}
+
+message GetScheduledBlueprintsResponse {
+  repeated BlueprintId blueprintIds = 1;
+}
+
+message CreateModDataVersionRequest {
+    string playElementId = 1;
+}
+
+message CreateModDataVersionResponse {
+    string signedUrl = 1;
+    google.protobuf.Timestamp validUntil = 2;
+    string modLevelDataId = 3;
+}
+
+message ListModDataVersionsRequest {
+    string playElementId = 1;
+}
+
+message ListModDataVersionsResponse {
+    repeated ModDataVersion modDataVersions = 1;
+}
+
+message UploadExperienceThumbnailRequest {
+  bytes image = 1;
+  StringValue mimeType = 2;
+}
+
+message UploadExperienceThumbnailResponse {
+  string assetId = 1;
+  string url = 2;
+  string verificationUrl = 3;
+}
+
+message GetProgressionTypesRequest {}
+
+message GetProgressionTypesResponse {
+    repeated ProgressionEntry entries = 1;
+}
+
+message GetLicenseRequirementsRequest {}
+
+message GetLicenseRequirementsResponse {
+    repeated string ownedLicenses = 1;
+    repeated MapEntryRequirement mapEntryRequirements = 2;
+}
+
+message GetAvailableTagsRequest {}
+
+message GetAvailableTagsResponse {
+    repeated AvailableTags availableTags = 1;
+}
+
+message ListExperiencesRequest {
+  PlayExperienceQuery filter = 3;
+  Pagination page = 4;
+}
+
+message ListExperiencesResponse {
+  repeated PlayExperience experiences = 1;
+  Pagination nextPage = 2;
+}
+
+message DeleteAttachmentsRequest {
+  string playElementDesignId = 1;
+  repeated string attachmentIds = 2;
+}
+
+message DeleteAttachmentsResponse {}

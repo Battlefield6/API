@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+package santiago.web.play;
+
+message ReportPlayerRequest {
+   uint32 offendingPlayer = 1;
+   uint32 subject = 2;
+}

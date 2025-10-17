@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package santiago.web.play;
+
+message ModDataVersionBuildInfo {
+   string pipelineVersion = 1;
+   uint32 pending = 3;
+   uint32 noBuildAvailable = 4;
+   uint32 error = 5;
+   uint32 success = 6;
+}

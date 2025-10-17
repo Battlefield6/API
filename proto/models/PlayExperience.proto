@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package santiago.web.play;
+import "google/protobuf/timestamp.proto";
+message PlayExperience {
+   repeated string id = 1;
+   string name = 2;
+   uint32 creator = 3;
+   uint32 description = 4;
+   uint32 shortCode = 5;
+   uint32 thumbnailUrl = 6;
+   uint32 likes = 7;
+   uint32 playerCount = 8;
+   google.protobuf.Timestamp created = 9;
+   google.protobuf.Timestamp updated = 10;
+   uint32 mapRotation = 11;
+   bool isPremium = 12;
+}

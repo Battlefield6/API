@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package santiago.web.play;
+
+message Attachment {
+   repeated string id = 1;
+   string version = 2;
+   uint32 filename = 3;
+   bool isProcessable = 4;
+   int32 processingStatus = 5;
+   uint32 attachmentData = 6;
+   int32 attachmentType = 7;
+   uint32 metadata = 8;
+}

@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package santiago.web.play;
+
+message LocalizedText {
+   string sid = 1;
+   string localizedText = 2;
+   int32 categoryId = 3;
+}

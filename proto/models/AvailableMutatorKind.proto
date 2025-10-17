@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package santiago.web.play;
+
+message AvailableMutatorKind {
+   uint32 mutatorBoolean = 1;
+   uint32 mutatorString = 4;
+   uint32 mutatorFloatValues = 7;
+   uint32 mutatorIntValues = 8;
+   uint32 mutatorSparseBoolean = 9;
+   uint32 mutatorSparseIntValues = 10;
+   uint32 mutatorSparseFloatValues = 11;
+}

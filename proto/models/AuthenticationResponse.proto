@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package santiago.web.play;
+
+message AuthenticationResponse {
+   string sessionId = 1;
+   uint32 player = 2;
+   uint32 timeTravel = 3;
+   uint32 protocolVersionOverride = 4;
+   string patchVersion = 5;
+}

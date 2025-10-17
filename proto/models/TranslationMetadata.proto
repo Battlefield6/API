@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+package santiago.web.play;
+
+message TranslationMetadata {
+   string kind = 1;
+   string translationId = 2;
+}

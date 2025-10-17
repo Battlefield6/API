@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+package santiago.web.play;
+
+message ListExperiencesRequest {
+   uint32 filter = 3;
+   uint32 page = 4;
+}

@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package santiago.web.play;
+
+message InternalTeamStructure {
+   int32 teamId = 1;
+   int32 capacity = 2;
+   int32 capacityType = 3;
+}
