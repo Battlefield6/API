@@ -14,14 +14,24 @@ Configuration.setSession('web-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx');
 ## Building
 > npm run proto:generate
 
-## Examples
-### List all `Blueprints`
+## Imports
+```ts
+import * from 'battlefield6-api';
+```
+
+or specified:
+
 ```ts
 import {
     Configuration,
     Blueprint
-} from "./Connector";
+} from 'battlefield6-api';
+```
 
+## Examples
+### List all `Blueprints`
+```ts
+import * from 'battlefield6-api';
 (async function main() {
     Configuration.setSession('web-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx');
 
@@ -51,12 +61,7 @@ import {
 
 ### List all `PlayElement`
 ```ts
-import {
-    Configuration,
-    PlayElement,
-} from "./Connector";
-
-import { PublishState } from './generated/enum/PublishState';
+import * from 'battlefield6-api';
 
 (async function main() {
     Configuration.setSession('web-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx');
@@ -78,12 +83,7 @@ import { PublishState } from './generated/enum/PublishState';
 
 ### Create a `PlayElement`
 ```ts
-import {
-    Configuration,
-    PlayElement,
-} from "./Connector";
-
-import { PublishState } from './generated/enum/PublishState';
+import * from 'battlefield6-api';
 
 (async function main() {
     Configuration.setSession('web-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx');
@@ -115,12 +115,7 @@ import { PublishState } from './generated/enum/PublishState';
 > [!WARNING]
 > This method is not "really" a delete method for a PlayElement, it will not deteled, it will archived internally and get the State `PublishState.ARCHIVED`!
 ```ts
-import {
-    Configuration,
-    PlayElement,
-} from "./Connector";
-
-import { PublishState } from './generated/enum/PublishState';
+import * from 'battlefield6-api';
 
 (async function main() {
     Configuration.setSession('web-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx');
@@ -136,12 +131,7 @@ import { PublishState } from './generated/enum/PublishState';
 
 ### Update a `PlayElement`
 ```ts
-import {
-    Configuration,
-    PlayElement,
-} from "./Connector";
-
-import { PublishState } from './generated/enum/PublishState';
+import * from 'battlefield6-api';
 
 (async function main() {
     Configuration.setSession('web-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx');

@@ -2,3 +2,5 @@
 /node_modules
 /src/generated
 package-lock.json
+.env
+dist/

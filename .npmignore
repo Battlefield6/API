@@ -1,0 +1,11 @@
+src/
+tests/
+node_modules/
+*.log
+.git/
+.gitignore
+.vscode/
+tsconfig.json
+nodemon.json
+*.test.ts
+*.spec.ts
