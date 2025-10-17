@@ -19,7 +19,7 @@ export default class Authentication {
         this.connector = connector;
     }
 
-    // Simple Test!
+    // Simple Test!dd
     public async start(): Promise<AuthenticationResponse | null> {
         const request                       = AuthCodeAuthentication.fromPartial({
             authCode:       '',
