@@ -1,7 +1,7 @@
 {
   "name":         "battlefield6-api",
-  "version":      "1.0.0",
-  "description":  "",
+  "version":      "1.0.1",
+  "description":  "This is an basic API to work with DICE's Portal-Server (Battlefield 6).",
   "license":      "ISC",
   "author":       "",
   "type":         "commonjs",
@@ -9,6 +9,10 @@
     "proto:generate": "node generator.js",
     "proto:watch":    "nodemon --watch proto --exec npm run proto:generate"
   },
+  "repository":		"battlefield6/API",
+  "keywords": [
+	"dice", "battlefield", "bf6", "grpc", "protobuf", "portal"
+  ],
   "devDependencies": {
     "@types/google-protobuf": "^3.15.12",
     "@types/node":            "^24.7.2",
