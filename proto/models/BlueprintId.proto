@@ -3,6 +3,6 @@ syntax = "proto3";
 package santiago.web.play;
 
 message BlueprintId {
-   string id = 1;
-   string version = 2;
+    string id = 1;
+    string version = 2;
 }

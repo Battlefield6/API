@@ -18,7 +18,10 @@
     "proto:generate": "node generator.js",
     "proto:watch": "nodemon --watch proto --exec npm run proto:generate",
     "prepare": "npm run proto:generate && npm run build",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "test:proto": "ts-node tests/protobuf-base64-test.ts",
+    "analyze:network": "ts-node tests/decode-network-data.ts",
+    "decode": "ts-node tests/decode-simple.ts"
   },
   "repository": "battlefield6/API",
   "keywords": [

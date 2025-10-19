@@ -1,20 +1,28 @@
+
 syntax = "proto3";
 
 package santiago.web.play;
+
 import "google/protobuf/timestamp.proto";
+import "models/PlayElementSettings.proto";
+import "models/Int32Value.proto";
+import "models/StringValue.proto";
+import "models/Creator.proto";
+import "enum/PublishState.proto";
+
 message PlayElement {
-   string id = 1;
-   string designId = 2;
-   uint32 creator = 3;
-   string name = 4;
-   uint32 description = 5;
-   google.protobuf.Timestamp created = 6;
-   google.protobuf.Timestamp updated = 7;
-   uint32 playElementSettings = 8;
-   int32 publishStateType = 9;
-   uint32 likes = 10;
-   google.protobuf.Timestamp publishAt = 11;
-   uint32 thumbnailUrl = 12;
-   int32 moderationState = 13;
-   uint32 shortCode = 14;
+  string id = 1;
+  string designId = 2;
+  Creator creator = 3;
+  string name = 4;
+  StringValue description = 5;
+  google.protobuf.Timestamp created = 6;
+  google.protobuf.Timestamp updated = 7;
+  PlayElementSettings playElementSettings = 8;
+  PublishState publishStateType = 9;
+  Int32Value likes = 10;
+  google.protobuf.Timestamp publishAt = 11;
+  StringValue thumbnailUrl = 12;
+  int32 moderationState = 13;
+  StringValue shortCode = 14;
 }

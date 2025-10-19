@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package santiago.web.play;
+
+import "google/protobuf/timestamp.proto";
+import "enum/PublishState.proto";
+
+message PlayElementV2 {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  string owner_id = 4;
+  bool is_public = 5;
+  string thumbnail_url = 6;
+  google.protobuf.Timestamp created_at = 7;
+  google.protobuf.Timestamp updated_at = 8;
+  string experience_id = 9;
+  repeated string tags = 10;
+}

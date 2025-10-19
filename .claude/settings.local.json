@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run test:proto -- tests/updatePlayElement.extracted.base64 playelement)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

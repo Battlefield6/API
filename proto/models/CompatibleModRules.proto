@@ -2,8 +2,10 @@ syntax = "proto3";
 
 package santiago.web.play;
 
+import "models/CompiledRules.proto";
+
 message CompatibleModRules {
-   bytes original = 1;
-   int32 rulesVersion = 2;
-   uint32 compiled = 3;
+    bytes original = 1;
+    uint32 rulesVersion = 2;
+    CompiledRules compiled = 3;
 }

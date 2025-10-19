@@ -3,5 +3,5 @@ syntax = "proto3";
 package santiago.web.play;
 
 message InternalCreator {
-   uint32 player = 1;
+
 }

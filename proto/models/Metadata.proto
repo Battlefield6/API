@@ -1,9 +1,11 @@
 syntax = "proto3";
 
 package santiago.web.play;
+
 import "models/TranslationMetadata.proto";
 import "models/Resource.proto";
+
 message Metadata {
-   repeated TranslationMetadata translations = 1;
-   repeated Resource resources = 2;
+    repeated TranslationMetadata translations = 1;
+    repeated Resource resources = 2;
 }

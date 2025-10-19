@@ -2,6 +2,6 @@ syntax = "proto3";
 
 package santiago.web.play;
 
-message PSNMetadata {
-    string activityId = 1;
+message Map {
+
 }

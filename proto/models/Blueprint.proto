@@ -2,10 +2,16 @@ syntax = "proto3";
 
 package santiago.web.play;
 
+import "models/BlueprintId.proto";
+import "models/AvailableTags.proto";
+import "models/AvailableGameData.proto";
+import "google/protobuf/timestamp.proto";
+
 message Blueprint {
-   repeated uint32 blueprintId = 1;
-   string name = 2;
-   uint32 availableGameData = 3;
-   uint32 availableTags = 4;
-   uint32 availableProgressionModeTags = 5;
+  BlueprintId id = 1;
+  string name = 2;
+  AvailableGameData availableGameData = 3;
+  AvailableTags availableTags = 4;
+  repeated string availableThumbnailUrls = 5;
+  AvailableTags availableProgressionModeTags = 6;
 }

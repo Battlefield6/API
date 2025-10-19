@@ -2,9 +2,11 @@ syntax = "proto3";
 
 package santiago.web.play;
 
+import "models/mutators/MutatorKind.proto";
+
 message Mutator {
-   string name = 1;
-   string category = 2;
-   uint32 kind = 3;
-   string id = 4;
+    string name = 1;
+    string category = 2;
+    MutatorKind kind = 3;
+    string id = 4;
 }

@@ -2,6 +2,9 @@ syntax = "proto3";
 
 package santiago.web.play;
 
+import "models/Mutator.proto";
+
 message ProgressionEntry {
-   repeated string progressionMode = 1;
+    string progressionMode = 1;
+    repeated Mutator progressibles = 2;
 }

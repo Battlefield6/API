@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package santiago.web.play;
 
+import "models/Player.proto";
+
 message PlayerCreator {
-   uint32 player = 1;
+    Player player = 1;
 }

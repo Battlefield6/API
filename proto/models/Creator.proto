@@ -2,9 +2,13 @@ syntax = "proto3";
 
 package santiago.web.play;
 
+import "models/InternalCreator.proto";
+import "models/PlayerCreator.proto";
+import "models/ExternalCreator.proto";
+
 message Creator {
-   uint32 internalCreator = 1;
-   uint32 playerCreator = 2;
-   uint32 externalCreator = 3;
-   uint32 trustedCreator = 4;
+    InternalCreator internalCreator = 1;
+    PlayerCreator playerCreator = 2;
+    ExternalCreator externalCreator = 3;
+    PlayerCreator trustedCreator = 4;
 }
