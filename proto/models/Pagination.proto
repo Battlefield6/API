@@ -3,6 +3,6 @@ syntax = "proto3";
 package santiago.web.play;
 
 message Pagination {
-    int32 pageNumber = 1;
-    string token = 2;
+   int32 pageNumber = 1;
+   string token = 2;
 }

@@ -2,11 +2,7 @@ syntax = "proto3";
 
 package santiago.web.play;
 
-import "models/StringValue.proto";
-import "models/GameServerMessage.proto";
-
 message PlayElementSettings {
-    StringValue secret = 1;
-    repeated GameServerMessage messages = 2;
-    bool allowCopies = 4;
+   repeated uint32 secret = 1;
+   bool allowCopies = 2;
 }

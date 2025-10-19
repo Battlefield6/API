@@ -1,33 +1,24 @@
 syntax = "proto3";
 
 package santiago.web.play;
-
 import "google/protobuf/timestamp.proto";
-import "models/DesignMetadata.proto";
-import "models/MapRotation.proto";
-import "models/StringValue.proto";
-import "models/Mutator.proto";
 import "models/AssetCategory.proto";
-import "models/ModRules.proto";
 import "models/Tag.proto";
-import "models/BlazePlayElementDesignSettings.proto";
 import "models/Attachment.proto";
-
 message PlayElementDesign {
-    string designId = 1;
-    string designName = 2;
-    google.protobuf.Timestamp created = 4;
-    DesignMetadata designMetadata = 5;
-    MapRotation mapRotation = 6;
-    repeated Mutator mutators = 7;
-    repeated AssetCategory assetCategories = 8;
-    repeated string licenseRequirements = 9;
-    ModRules modRules = 10;
-    repeated Tag tags = 12;
-    BlazePlayElementDesignSettings blazeSettings = 13;
-    StringValue modLevelDataId = 14;
-    repeated Attachment attachments = 15;
-    repeated string groupLicenses = 16;
-    int32 attachmentCompileStatus = 17;
-    repeated string serverHostLicenseRequirements = 18;
+   repeated string designId = 1;
+   string designName = 2;
+   google.protobuf.Timestamp created = 4;
+   uint32 designMetadata = 5;
+   uint32 mapRotation = 6;
+   uint32 modRules = 7;
+   repeated AssetCategory assetCategories = 8;
+   repeated string licenseRequirements = 9;
+   repeated Tag tags = 10;
+   uint32 blazeSettings = 12;
+   repeated Attachment attachments = 13;
+   uint32 modLevelDataId = 14;
+   int32 attachmentCompileStatus = 15;
+   repeated string groupLicenses = 16;
+   repeated string serverHostLicenseRequirements = 17;
 }

@@ -8,23 +8,21 @@ import "models/MapRotation.proto";
 import "models/Mutator.proto";
 import "models/AssetCategory.proto";
 import "models/PlayElementSettings.proto";
-import "enum/PublishState.proto";
+import "models/PublishState.proto";
 import "models/Attachment.proto";
-import "models/PlayElement.proto";
 
 message UpdatePlayElementRequest {
    string id = 1;
    string name = 2;
-   string description = 3;
+   StringValue description = 3;
    DesignMetadata designMetadata = 4;
    MapRotation mapRotation = 5;
-   repeated Mutator mutators = 6;
+   Mutator mutators = 6;
    repeated AssetCategory assetCategories = 7;
    bytes originalModRules = 8;
-   // Field 9 is missing/reserved
    PlayElementSettings playElementSettings = 10;
    int32 publishState = 11;
-   string modLevelDataId = 12;
-   string thumbnailUrl = 13;
+   StringValue modLevelDataId = 12;
+   StringValue thumbnailUrl = 13;
    repeated Attachment attachments = 14;
 }

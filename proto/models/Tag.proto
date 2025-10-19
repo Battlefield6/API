@@ -2,10 +2,8 @@ syntax = "proto3";
 
 package santiago.web.play;
 
-import "models/Metadata.proto";
-
 message Tag {
-    string tagId = 1;
-    uint32 priority = 2;
-    Metadata metadata = 3;
+   string tagId = 1;
+   int32 priority = 2;
+   uint32 metadata = 3;
 }

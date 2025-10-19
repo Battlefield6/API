@@ -1,16 +1,10 @@
 syntax = "proto3";
 
 package santiago.web.play;
-
-import "models/AvailableMutator.proto";
-import "models/ModRulesDefinition.proto";
-import "models/AvailableAssetCategories.proto";
-import "models/AssetInfo.proto";
-
+import "models/AvailableMapEntry.proto";
 message AvailableGameData {
-    repeated AvailableMutator mutators = 1;
-    repeated uint32 AvailableMapEntry = 2;
-    ModRulesDefinition modRules = 3;
-    AvailableAssetCategories assetCategories = 4;
-    AssetInfo spatialAssetInfo = 5;
+   repeated uint32 modRules = 1;
+   repeated AvailableMapEntry maps = 2;
+   uint32 assetCategories = 4;
+   uint32 spatialAssetInfo = 5;
 }

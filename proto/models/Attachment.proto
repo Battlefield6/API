@@ -2,17 +2,13 @@ syntax = "proto3";
 
 package santiago.web.play;
 
-import "models/AttachmentData.proto";
-import "models/StringValue.proto";
-
 message Attachment {
-	string id = 1;
-	string version = 2;
-	StringValue filename = 3;
-	bool isProcessable = 4;
-	int32 processingStatus = 5;
-	AttachmentData attachmentData = 6;
-	int32 attachmentType = 7;
-	StringValue metadata = 8;
-	repeated string errors = 9;
+   repeated string id = 1;
+   string version = 2;
+   uint32 filename = 3;
+   bool isProcessable = 4;
+   int32 processingStatus = 5;
+   uint32 attachmentData = 6;
+   int32 attachmentType = 7;
+   uint32 metadata = 8;
 }

@@ -2,17 +2,13 @@ syntax = "proto3";
 
 package santiago.web.play;
 
-import "models/StringValue.proto";
-import "models/PlayerCreator.proto";
-
 message PlayExperienceQuery {
-    repeated string mapsEq = 1;
-    repeated string levelLocationsEq = 2;
-    repeated int32 maxPlayerCountEq = 3;
-    repeated string tagsEq = 4;
-    PlayerCreator playerCreatorEq = 7;
-    int32 ordering = 8;
-    int32 pageSize = 9;
-    StringValue namePrefix = 10;
-    StringValue shortCode = 11;
+   repeated uint32 playerCreatorEq = 1;
+   repeated string levelLocationsEq = 2;
+   repeated int32 maxPlayerCountEq = 3;
+   repeated string tagsEq = 4;
+   int32 ordering = 8;
+   int32 pageSize = 9;
+   uint32 namePrefix = 10;
+   uint32 shortCode = 11;
 }

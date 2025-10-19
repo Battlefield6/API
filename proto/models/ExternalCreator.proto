@@ -3,5 +3,7 @@ syntax = "proto3";
 package santiago.web.play;
 
 message ExternalCreator {
-
+   string tagId = 1;
+   int32 priority = 2;
+   uint32 metadata = 3;
 }

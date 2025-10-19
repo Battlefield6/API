@@ -2,11 +2,7 @@ syntax = "proto3";
 
 package santiago.web.play;
 
-import "models/AssetCategoryTagBooleanOverride.proto";
-import "models/AssetCategoryTagBooleanTeamOverride.proto";
-
 message AssetCategoryBoolean {
-    bool defaultValue = 1;
-    AssetCategoryTagBooleanOverride overrides = 2;
-    repeated AssetCategoryTagBooleanTeamOverride teamOverrides = 3;
+   repeated bool defaultValue = 1;
+   uint32 overrides = 2;
 }

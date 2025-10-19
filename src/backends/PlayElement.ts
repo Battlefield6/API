@@ -10,9 +10,8 @@ import {
     DeletePlayElementResponse,
     CreatePlayElementRequest,
     PlayElementResponse,
-	GetPlayElementRequest
+    UpdatePlayElementRequest
 } from "../generated/Main";
-import { UpdatePlayElementRequest } from "../generated/models/UpdatePlayElementRequest";
 
 import { Connector, PublishState } from '../Connector';
 import REST from '../REST';
@@ -94,26 +93,10 @@ export default class PlayElement {
     }
 
     public async update(id: string, data: any): Promise<PlayElementResponse | null> {
+        console.log({ id, ...data });
         const request                       = UpdatePlayElementRequest.fromPartial({ id, ...data });
         const bytes: Uint8Array             = UpdatePlayElementRequest.encode(request).finish();
         const response: Uint8Array | null   = await REST.post(this.connector.getConfig().getURL('updatePlayElement'), bytes, {
-            'Origin':               `https://${this.connector.getConfig().getTarget()}`,
-            'Referer':              `https://${this.connector.getConfig().getTarget()}`,
-            'x-dice-tenancy':       this.connector.getConfig().getTenancy(),
-            'x-gateway-session-id': this.connector.getConfig().getSession() || ''
-        });
-
-        if(response == null) {
-            return null;
-        }
-
-        return PlayElementResponse.decode(response);
-    }
-
-    public async get(id: string, includeDenied: boolean = false): Promise<PlayElementResponse | null> {
-        const request                       = GetPlayElementRequest.fromPartial({ id, includeDenied });
-        const bytes: Uint8Array             = GetPlayElementRequest.encode(request).finish();
-        const response: Uint8Array | null   = await REST.post(this.connector.getConfig().getURL('getPlayElement'), bytes, {
             'Origin':               `https://${this.connector.getConfig().getTarget()}`,
             'Referer':              `https://${this.connector.getConfig().getTarget()}`,
             'x-dice-tenancy':       this.connector.getConfig().getTenancy(),

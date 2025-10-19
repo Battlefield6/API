@@ -2,9 +2,7 @@ syntax = "proto3";
 
 package santiago.web.play;
 
-import "models/StringValue.proto";
-
 message ErrorModRules {
-    bytes original = 1;
-    StringValue errorMessage = 2;
+   bytes original = 1;
+   uint32 errorMessage = 2;
 }

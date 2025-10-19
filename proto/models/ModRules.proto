@@ -2,12 +2,8 @@ syntax = "proto3";
 
 package santiago.web.play;
 
-import "models/CompatibleModRules.proto";
-import "models/IncompatibleModRules.proto";
-import "models/ErrorModRules.proto";
-
 message ModRules {
-    CompatibleModRules compatibleRules = 1;
-    IncompatibleModRules incompatibleRules = 2;
-    ErrorModRules errorRules = 3;
+   uint32 compatibleRules = 1;
+   uint32 incompatibleRules = 2;
+   uint32 errorRules = 3;
 }

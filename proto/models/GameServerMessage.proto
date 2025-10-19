@@ -3,6 +3,6 @@ syntax = "proto3";
 package santiago.web.play;
 
 message GameServerMessage {
-    string kind = 1;
-    string text = 2;
+   string kind = 1;
+   string text = 2;
 }

@@ -2,8 +2,6 @@ syntax = "proto3";
 
 package santiago.web.play;
 
-import "models/PSNMetadata.proto";
-
 message FirstPartyMetadata {
-    PSNMetadata psnMetadata = 1;
+   uint32 psnMetadata = 1;
 }

@@ -2,10 +2,6 @@ syntax = "proto3";
 
 package santiago.web.play;
 
-import "models/StringValue.proto";
-import "models/FirstPartyMetadata.proto";
-
 message DesignMetadata {
-    StringValue progressionMode = 1;
-    FirstPartyMetadata firstPartyMetadata = 2;
+   repeated uint32 progressionMode = 1;
 }

@@ -1,10 +1,10 @@
 syntax = "proto3";
 
 package santiago.web.play;
-
 import "google/protobuf/timestamp.proto";
-
 message ModDataVersion {
-    int32 version = 1;
-    google.protobuf.Timestamp created_at = 2;
+   string id = 1;
+   string playElementId = 2;
+   google.protobuf.Timestamp created = 3;
+   uint32 buildInfo = 4;
 }

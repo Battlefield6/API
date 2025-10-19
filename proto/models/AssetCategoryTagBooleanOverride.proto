@@ -3,6 +3,5 @@ syntax = "proto3";
 package santiago.web.play;
 
 message AssetCategoryTagBooleanOverride {
-    repeated string assetCategoryTags = 1;
-    bool value = 2;
+   repeated bool value = 1;
 }

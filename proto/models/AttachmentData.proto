@@ -2,9 +2,7 @@ syntax = "proto3";
 
 package santiago.web.play;
 
-import "models/BytesValue.proto";
-
 message AttachmentData {
    bytes original = 1;
-   BytesValue compiled = 2;
+   uint32 compiled = 2;
 }
