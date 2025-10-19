@@ -2,7 +2,10 @@ syntax = "proto3";
 
 package santiago.web.play;
 
+import "models/Uncompressed.proto";
+import "models/Compressed.proto";
+
 message CompiledRules {
-   uint32 uncompressed = 1;
-   uint32 compressed = 2;
+    Uncompressed uncompressed = 1;
+    Compressed compressed = 2;
 }

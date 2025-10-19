@@ -3,5 +3,5 @@ syntax = "proto3";
 package santiago.web.play;
 
 message BlazePlayElementDesignSettings {
-   int32 openGroupReservations = 1;
+    int32 openGroupReservations = 1;
 }

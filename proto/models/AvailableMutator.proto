@@ -2,10 +2,13 @@ syntax = "proto3";
 
 package santiago.web.play;
 
+import "models/AvailableMutatorKind.proto";
+import "models/Metadata.proto";
+
 message AvailableMutator {
-   string name = 1;
-   string category = 2;
-   uint32 kind = 3;
-   uint32 metadata = 4;
-   string id = 5;
+    string name = 1;
+    string category = 2;
+    AvailableMutatorKind kind = 3;
+    Metadata metadata = 4;
+    string id = 5;
 }

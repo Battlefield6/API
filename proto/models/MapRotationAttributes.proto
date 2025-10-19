@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package santiago.web.play;
 
+import "enum/RotationBehavior.proto";
+
 message MapRotationAttributes {
-   int32 rotationBehavior = 1;
+  RotationBehavior rotationBehavior = 1;
 }

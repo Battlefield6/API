@@ -3,7 +3,7 @@ syntax = "proto3";
 package santiago.web.play;
 
 message IncompatibleModRules {
-   bytes original = 1;
-   int32 rulesVersion = 2;
-   int32 blueprintRulesVersion = 3;
+    bytes original = 1;
+    int32 rulesVersion = 2;
+    int32 blueprintRulesVersion = 3;
 }

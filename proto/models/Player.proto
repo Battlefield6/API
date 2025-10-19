@@ -3,7 +3,7 @@ syntax = "proto3";
 package santiago.web.play;
 
 message Player {
-   uint64 nucleusId = 1;
-   uint64 personaId = 2;
-   int32 platform = 3;
+    uint64 nucleusId = 1;
+    uint64 personaId = 2;
+    int32 platform = 3;
 }

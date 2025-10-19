@@ -2,12 +2,20 @@ syntax = "proto3";
 
 package santiago.web.play;
 
+import "models/mutators/MutatorBoolean.proto";
+import "models/mutators/MutatorString.proto";
+import "models/mutators/MutatorSparseBoolean.proto";
+import "models/AvailableMutatorFloatValues.proto";
+import "models/AvailableMutatorIntValues.proto";
+import "models/AvailableMutatorSparseIntValues.proto";
+import "models/AvailableMutatorSparseFloatValues.proto";
+
 message AvailableMutatorKind {
-   uint32 mutatorBoolean = 1;
-   uint32 mutatorString = 4;
-   uint32 mutatorFloatValues = 7;
-   uint32 mutatorIntValues = 8;
-   uint32 mutatorSparseBoolean = 9;
-   uint32 mutatorSparseIntValues = 10;
-   uint32 mutatorSparseFloatValues = 11;
+    MutatorBoolean mutatorBoolean = 1;
+    MutatorString mutatorString = 4;
+    AvailableMutatorFloatValues mutatorFloatValues = 7;
+    AvailableMutatorIntValues mutatorIntValues = 8;
+    MutatorSparseBoolean mutatorSparseBoolean = 9;
+    AvailableMutatorSparseIntValues mutatorSparseIntValues = 10;
+    AvailableMutatorSparseFloatValues mutatorSparseFloatValues = 11;
 }

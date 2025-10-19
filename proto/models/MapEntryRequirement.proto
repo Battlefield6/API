@@ -3,6 +3,7 @@ syntax = "proto3";
 package santiago.web.play;
 
 message MapEntryRequirement {
-   repeated string levelName = 1;
-   string levelLocation = 2;
+    string levelName = 1;
+    string levelLocation = 2;
+    repeated string licenseRequirements = 3;
 }

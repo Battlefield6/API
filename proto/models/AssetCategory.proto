@@ -2,7 +2,9 @@ syntax = "proto3";
 
 package santiago.web.play;
 
+import "models/AssetCategoryBoolean.proto";
+
 message AssetCategory {
-   string tagId = 1;
-   uint32 boolean = 2;
+    string tagId = 1;
+    AssetCategoryBoolean boolean = 2;
 }

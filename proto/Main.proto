@@ -26,6 +26,7 @@ import "models/MapRotation.proto";
 import "models/AssetCategory.proto";
 import "models/Mutator.proto";
 import "models/Attachment.proto";
+import "models/UpdatePlayElementRequest.proto";
 
 service WebPlay {
   /* Blueprints */
@@ -144,21 +145,6 @@ message CreatePlayElementRequest {
 message GetPlayElementRequest {
   string id = 1;
   bool includeDenied = 2;
-}
-
-message UpdatePlayElementRequest {
-  string name = 1;
-  StringValue description = 2;
-  DesignMetadata designMetadata = 3;
-  MapRotation mapRotation = 4;
-  repeated Mutator mutators = 5;
-  repeated AssetCategory assetCategories = 6;
-  bytes originalModRules = 7;
-  PlayElementSettings playElementSettings = 9;
-  PublishState publishState = 10;
-  StringValue modLevelDataId = 11;
-  StringValue thumbnailUrl = 12;
-  repeated Attachment attachments = 13;
 }
 
 message DeletePlayElementRequest {

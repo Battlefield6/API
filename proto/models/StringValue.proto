@@ -3,5 +3,5 @@ syntax = "proto3";
 package santiago.web.play;
 
 message StringValue {
-   string value = 1;
+    string value = 1;
 }

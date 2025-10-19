@@ -20,6 +20,16 @@ export default class Authentication {
     }
 
     // Simple Test!dd
+    /*
+        
+        https://santiago-prod-wgw-envoy.ops.dice.se/santiago.web.authentication.WebAuthentication/viaAuthCode
+        POST
+        tenancy: prod_default-prod_default-santiago-common
+
+        f
+*QUOgAGDxFC2B9qw4cuw3AYXMCKtycAl6_5_19EVQAQ6
+4https://portal.battlefield.com/bf6/de-de/experiences
+    */
     public async start(): Promise<AuthenticationResponse | null> {
         const request                       = AuthCodeAuthentication.fromPartial({
             authCode:       '',

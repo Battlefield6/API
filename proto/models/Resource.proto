@@ -3,6 +3,6 @@ syntax = "proto3";
 package santiago.web.play;
 
 message Resource {
-   uint32 location = 1;
-   string kind = 2;
+    string ref = 1;
+    string url = 2;
 }
