@@ -1,6 +1,6 @@
 {
   "name": "battlefield6-api",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "This is an basic API to work with DICE's Portal-Server (Battlefield 6).",
   "license": "ISC",
   "author": "",

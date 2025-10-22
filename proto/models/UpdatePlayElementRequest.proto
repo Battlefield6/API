@@ -15,7 +15,7 @@ import "models/PlayElement.proto";
 message UpdatePlayElementRequest {
    string id = 1;
    string name = 2;
-   string description = 3;
+   StringValue description = 3;
    DesignMetadata designMetadata = 4;
    MapRotation mapRotation = 5;
    repeated Mutator mutators = 6;
@@ -23,8 +23,8 @@ message UpdatePlayElementRequest {
    bytes originalModRules = 8;
    // Field 9 is missing/reserved
    PlayElementSettings playElementSettings = 10;
-   int32 publishState = 11;
-   string modLevelDataId = 12;
-   string thumbnailUrl = 13;
+   PublishState publishState = 11;
+   StringValue modLevelDataId = 12;
+   StringValue thumbnailUrl = 13;
    repeated Attachment attachments = 14;
 }
