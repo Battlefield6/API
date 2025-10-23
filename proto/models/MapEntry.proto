@@ -2,12 +2,18 @@ syntax = "proto3";
 
 package santiago.web.play;
 
+import "models/TeamComposition.proto";
+import "models/BlazeGameSettings.proto";
+import "models/Mutator.proto";
+import "models/GameServerJoinabilitySettings.proto";
+
 message MapEntry {
-   repeated string levelName = 1;
+   string levelName = 1;
    string levelLocation = 2;
    int32 rounds = 3;
    int32 allowedSpectators = 4;
-   uint32 teamComposition = 5;
-   uint32 blazeGameSettings = 6;
-   uint32 gameServerJoinabilitySettings = 7;
+   TeamComposition teamComposition = 5;
+   BlazeGameSettings blazeGameSettings = 6;
+   repeated Mutator mutators = 7;
+   GameServerJoinabilitySettings gameServerJoinabilitySettings = 8;
 }

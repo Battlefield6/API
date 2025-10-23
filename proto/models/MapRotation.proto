@@ -2,10 +2,10 @@ syntax = "proto3";
 
 package santiago.web.play;
 
-import "models/Map.proto";
+import "models/MapEntry.proto";
 import "models/MapRotationAttributes.proto";
 
 message MapRotation {
-    repeated Map maps = 1;
+    repeated MapEntry maps = 1;
     MapRotationAttributes attributes = 2;
 }

@@ -11,6 +11,8 @@ Configuration.setSession('web-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx');
 ```
 
 ## Installation
+> WinGet install Google.Protobuf
+
 > npm install
 
 ## Building

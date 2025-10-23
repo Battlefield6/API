@@ -3,7 +3,7 @@
  * @version     1.0.0
  */
 
-export * from './generated';
+//export * from './generated';
 export * from './Configuration';
 export * from './Connector';
 export * from './Exceptions';

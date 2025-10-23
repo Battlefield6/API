@@ -43,8 +43,7 @@ export default class PlayElements {
         const responseMessage       = await GetOwnedPlayElementsResponse.decode(response);
 
         for(const entry of responseMessage.playElements) {
-            // @ToDo PlayElement object!
-            results.push(entry);
+            results.push(new PlayElement().fromJSON(entry));
         }
 
         return results;
@@ -67,7 +66,11 @@ export default class PlayElements {
         return GetOwnedPlayElementsResponseV2.decode(response);
     }
 
-    public async delete(playElementId: string): Promise<DeletePlayElementResponse | null> {
+    public async delete(playElementId: string | PlayElement): Promise<DeletePlayElementResponse | null> {
+        if(playElementId instanceof PlayElement) {
+            playElementId = playElementId.getId();
+        }
+
         const request                       = DeletePlayElementRequest.create({ playElementId });
         const bytes: Uint8Array             = DeletePlayElementRequest.encode(request).finish();
         const response: Uint8Array | null   = await REST.post(this.connector.getConfig().getURL('deletePlayElement'), bytes, {
@@ -101,9 +104,8 @@ export default class PlayElements {
         return PlayElementResponse.decode(response);
     }
 
-    public async update(id: string, data: any): Promise<PlayElementResponse | null> {
-        const request                       = UpdatePlayElementRequest.fromPartial({ id, ...data });
-        console.warn('update', request);
+    public async update(playElement: PlayElement): Promise<PlayElementResponse | null> {
+        const request                       = UpdatePlayElementRequest.fromPartial({ ...playElement.toJSON() });
         const bytes: Uint8Array             = UpdatePlayElementRequest.encode(request).finish();
         const response: Uint8Array | null   = await REST.post(this.connector.getConfig().getURL('updatePlayElement'), bytes, {
             'Origin':               `https://${this.connector.getConfig().getTarget()}`,
@@ -119,7 +121,7 @@ export default class PlayElements {
         return PlayElementResponse.decode(response);
     }
 
-    public async get(id: string, includeDenied: boolean = false): Promise<PlayElementResponse | null> {
+    public async get(id: string, includeDenied: boolean = false): Promise<PlayElement | null> {
         const request                       = GetPlayElementRequest.fromPartial({ id, includeDenied });
         const bytes: Uint8Array             = GetPlayElementRequest.encode(request).finish();
         const response: Uint8Array | null   = await REST.post(this.connector.getConfig().getURL('getPlayElement'), bytes, {
@@ -133,6 +135,12 @@ export default class PlayElements {
             return null;
         }
 
-        return PlayElementResponse.decode(response);
+        const responseMessage       = await PlayElementResponse.decode(response);
+        
+        if(!responseMessage.playElement) {
+            return null;
+        }
+
+        return new PlayElement().fromJSON(responseMessage);
     }
 }

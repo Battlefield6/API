@@ -9,7 +9,7 @@
         "skipLibCheck":                 true,
         "resolveJsonModule":            true,
         "allowSyntheticDefaultImports": true,
-        "moduleResolution":             "node",
+        "moduleResolution":             "node10",
         "declaration":                  true,
         "declarationMap":               true,
         "sourceMap":                    true
