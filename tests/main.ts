@@ -2,7 +2,7 @@
 // '/santiago.web.authentication.WebAuthentication/viaAuthCode',
 
 import { config } from 'dotenv';
-import { Configuration, Authentication } from '../src';
+import { Configuration, PlayElements } from '../src';
 
 config();    
 
@@ -15,9 +15,10 @@ config();
 
     Configuration.setSession(sessionId);
     
-    /* Auth Test */
+    /* Experiences */
     try {
-        Authentication.start();
+        let list = await PlayElements.list();
+        console.log(list);
     } catch(error: any) {
         console.error(error);
     }

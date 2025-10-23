@@ -7,7 +7,7 @@ import Configuration from './Configuration';
 import Authentication from './backends/Authentication';
 import Blueprint from './backends/Blueprint';
 import Experience from './backends/Experience';
-import PlayElement from './backends/PlayElement';
+import PlayElements from './backends/PlayElements';
 import Mod from './backends/Mod';
 import { PublishState } from './generated/enum/PublishState';
 
@@ -17,7 +17,7 @@ export default class Connector {
     /* Backends */
     private readonly authentication: Authentication;
     private readonly blueprints: Blueprint;
-    private readonly playElements: PlayElement;
+    private readonly playElements: PlayElements;
     private readonly experiences: Experience;
     private readonly mods: Mod;
 
@@ -27,7 +27,7 @@ export default class Connector {
         /* Register Backends */
         this.authentication = new Authentication(this);
         this.blueprints     = new Blueprint(this);
-        this.playElements   = new PlayElement(this);
+        this.playElements   = new PlayElements(this);
         this.experiences    = new Experience(this);
         this.mods           = new Mod(this);
     }
@@ -40,7 +40,7 @@ export default class Connector {
         return this.blueprints;
     }
 
-    public getPlayElement(): PlayElement {
+    public getPlayElements(): PlayElements {
         return this.playElements;
     }
 
@@ -61,7 +61,7 @@ const instance: Connector               = new Connector();
 const config: Configuration             = instance.getConfig();
 const authentication: Authentication    = instance.getAuthentication();
 const blueprint: Blueprint              = instance.getBlueprint();
-const playElements: PlayElement         = instance.getPlayElement();
+const playElements: PlayElements        = instance.getPlayElements();
 const experiences: Experience           = instance.getExperience();
 const mods: Mod                         = instance.getMod();
 
@@ -77,7 +77,7 @@ export {
     /* Backends */
     authentication as Authentication,
     blueprint as Blueprint,
-    playElements as PlayElement,
+    playElements as PlayElements,
     experiences as Experience,
     mods as Mod
 };

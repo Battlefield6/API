@@ -40,13 +40,15 @@ export default class REST {
         const response: Response = await fetch(url, objects);
 
         if(!response.ok) {
-            console.log(response);
             const error: string = await response.text();
+            console.warn('[' + method + '] on ' + url, data, objects, response, error);
+
             throw new Error(`HTTP ${response.status}: ${error}`);
         }
 
         // Read raw body
         const rawBuffer: ArrayBuffer = await response.arrayBuffer();
+        console.info('[' + method + '] on ' + url, data, objects, response, rawBuffer);
 
         // If server returned no body (trailer-only), inspect grpc-status header for errors like unauthenticated
         if(rawBuffer.byteLength === 0) {

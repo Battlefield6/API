@@ -16,16 +16,16 @@ import { UpdatePlayElementRequest } from "../generated/models/UpdatePlayElementR
 
 import { Connector, PublishState } from '../Connector';
 import REST from '../REST';
-import { StringifyOptions } from "node:querystring";
+import PlayElement from '../models/PlayElement';
 
-export default class PlayElement {
+export default class PlayElements {
     private connector: Connector;
 
     constructor(connector: Connector) {
         this.connector = connector;
     }
 
-    public async list(publishStates: PublishState[] = [], includeDenied: boolean = false): Promise<GetOwnedPlayElementsResponse | null> {
+    public async list(publishStates: PublishState[] = [ PublishState.ARCHIVED, PublishState.DRAFT, PublishState.PUBLISHED ], includeDenied: boolean = false): Promise<PlayElement[] | null> {
         const request                       = GetOwnedPlayElementsRequest.fromPartial({ publishStates, includeDenied });
         const bytes: Uint8Array             = GetOwnedPlayElementsRequest.encode(request).finish();
         const response: Uint8Array | null   = await REST.post(this.connector.getConfig().getURL('getOwnedPlayElements'), bytes, {
@@ -39,7 +39,15 @@ export default class PlayElement {
             return null;
         }
 
-        return GetOwnedPlayElementsResponse.decode(response);
+        let results:PlayElement[]   = [];
+        const responseMessage       = await GetOwnedPlayElementsResponse.decode(response);
+
+        for(const entry of responseMessage.playElements) {
+            // @ToDo PlayElement object!
+            results.push(entry);
+        }
+
+        return results;
     }
 
     public async listV2(publishStates: PublishState[] = [], includeDenied: boolean = false): Promise<GetOwnedPlayElementsResponseV2 | null> {
@@ -95,6 +103,7 @@ export default class PlayElement {
 
     public async update(id: string, data: any): Promise<PlayElementResponse | null> {
         const request                       = UpdatePlayElementRequest.fromPartial({ id, ...data });
+        console.warn('update', request);
         const bytes: Uint8Array             = UpdatePlayElementRequest.encode(request).finish();
         const response: Uint8Array | null   = await REST.post(this.connector.getConfig().getURL('updatePlayElement'), bytes, {
             'Origin':               `https://${this.connector.getConfig().getTarget()}`,

@@ -11,5 +11,5 @@ export * from './REST';
 export * from './backends/Blueprint';
 export * from './backends/Experience';
 export * from './backends/Mod';
-export * from './backends/PlayElement';
+export * from './backends/PlayElements';
 export * from './enums/Status';
