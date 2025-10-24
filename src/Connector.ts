@@ -4,11 +4,7 @@
  */
 
 import Configuration from './Configuration';
-import Authentication from './backends/Authentication';
-import Blueprint from './backends/Blueprint';
-import Experience from './backends/Experience';
-import PlayElements from './backends/PlayElements';
-import Mod from './backends/Mod';
+import { Authentication, Blueprints, PlayElements, Experience, Mod } from './backends';
 import { PublishState } from './generated/enum/PublishState';
 
 export default class Connector {
@@ -16,7 +12,7 @@ export default class Connector {
 
     /* Backends */
     private readonly authentication: Authentication;
-    private readonly blueprints: Blueprint;
+    private readonly blueprints: Blueprints;
     private readonly playElements: PlayElements;
     private readonly experiences: Experience;
     private readonly mods: Mod;
@@ -26,7 +22,7 @@ export default class Connector {
 
         /* Register Backends */
         this.authentication = new Authentication(this);
-        this.blueprints     = new Blueprint(this);
+        this.blueprints     = new Blueprints(this);
         this.playElements   = new PlayElements(this);
         this.experiences    = new Experience(this);
         this.mods           = new Mod(this);
@@ -36,7 +32,7 @@ export default class Connector {
         return this.config;
     }
 
-    public getBlueprint(): Blueprint {
+    public getBlueprints(): Blueprints {
         return this.blueprints;
     }
 
@@ -57,27 +53,4 @@ export default class Connector {
     }
 }
 
-const instance: Connector               = new Connector();
-const config: Configuration             = instance.getConfig();
-const authentication: Authentication    = instance.getAuthentication();
-const blueprint: Blueprint              = instance.getBlueprint();
-const playElements: PlayElements        = instance.getPlayElements();
-const experiences: Experience           = instance.getExperience();
-const mods: Mod                         = instance.getMod();
-
-export {
-    /* Main */
-    Connector,
-    instance as Instance,
-    config as Configuration,
-
-    /* Enums */
-    PublishState,
-
-    /* Backends */
-    authentication as Authentication,
-    blueprint as Blueprint,
-    playElements as PlayElements,
-    experiences as Experience,
-    mods as Mod
-};
+export { PublishState };

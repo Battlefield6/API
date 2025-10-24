@@ -1,3 +1,8 @@
+/**
+ * @author      Adrian Preuß
+ * @version     1.0.0
+ */
+
 export default class Team {
     public teamId: number   = 0;
     public capacity: number = 0;

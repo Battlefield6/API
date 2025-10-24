@@ -18,8 +18,7 @@
     "proto:generate": "node generator.js",
     "proto:watch": "nodemon --watch proto --exec npm run proto:generate",
     "prepare": "npm run proto:generate && npm run build",
-    "prepublishOnly": "npm run build",
-    "test": "ts-node tests/main.ts"
+    "prepublishOnly": "npm run build"
   },
   "repository": "battlefield6/API",
   "keywords": [

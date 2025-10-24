@@ -52,7 +52,7 @@ PlayElement management demonstrating:
 Advanced object-oriented approach using:
 - The Connector class
 - Custom Configuration instances
-- Multiple backend services (Blueprint, PlayElement, Experience, Mod)
+- Multiple backend services (Blueprints, PlayElement, Experience, Mod)
 
 ### 4. `example-import-styles.ts`
 Different import patterns:
@@ -61,7 +61,7 @@ Different import patterns:
 - Using the singleton Instance
 - Type-only imports for TypeScript
 
-### 5. `main.ts`
+### 5. `.base.ts`
 Original comprehensive test file with real-world scenarios.
 
 ## Authentication

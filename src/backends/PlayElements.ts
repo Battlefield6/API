@@ -14,7 +14,8 @@ import {
 } from "../generated/Main";
 import { UpdatePlayElementRequest } from "../generated/models/UpdatePlayElementRequest";
 
-import { Connector, PublishState } from '../Connector';
+import Connector from '../Connector';
+import { PublishState } from '../';
 import REST from '../REST';
 import PlayElement from '../models/PlayElement';
 

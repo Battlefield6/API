@@ -3,8 +3,8 @@
  * @version     1.0.0
  */
 
-import { PublishState } from "../Connector";
-import MapRotation from "./MapRotation";
+import { PublishState } from '../Connector';
+import MapRotation from './MapRotation';
 
 export default class PlayElement {
     public id: string                   = '';

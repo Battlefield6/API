@@ -1,4 +1,9 @@
-import Map from "./Map";
+/**
+ * @author      Adrian Preuß
+ * @version     1.0.0
+ */
+
+import Map from './Map';
 
 export default class MapRotation {
     public maps: Map[] = [];

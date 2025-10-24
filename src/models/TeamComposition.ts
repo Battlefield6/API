@@ -1,4 +1,9 @@
-import Team from "./Team";
+/**
+ * @author      Adrian Preuß
+ * @version     1.0.0
+ */
+
+import Team from './Team';
 
 export default class TeamComposition {
     public teams: Team[] = [];

@@ -1,4 +1,9 @@
-import TeamComposition from "./TeamComposition";
+/**
+ * @author      Adrian Preuß
+ * @version     1.0.0
+ */
+
+import TeamComposition from './TeamComposition';
 
 export default class Map {
     public name: string = '';

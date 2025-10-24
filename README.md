@@ -28,7 +28,7 @@ or specified:
 ```ts
 import {
     Configuration,
-    Blueprint
+    Blueprints
 } from 'battlefield6-api';
 ```
 
@@ -39,15 +39,15 @@ import * from 'battlefield6-api';
 (async function main() {
     Configuration.setSession('web-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx');
 
-    /* Getting all Blueprint ID's */
+    /* Getting all Blueprints ID's */
     try {
-        const ids = await Blueprint.list();
+        const ids = await Blueprints.list();
 
         if(ids) {
             console.log('Blueprints: ', ids?.blueprintIds);
 
-            /* Getting all details for given Blueprint ID's */
-            const blueprints = await Blueprint.get(ids.blueprintIds);
+            /* Getting all details for given Blueprints ID's */
+            const blueprints = await Blueprints.get(ids.blueprintIds);
             
             if(blueprints) {
                 console.log('blueprints', JSON.stringify(blueprints, null, 1));
@@ -55,7 +55,7 @@ import * from 'battlefield6-api';
                 console.error('Can\'t find Blueprints!');
             }
         } else {
-            console.error('Can\'t find Blueprint ID\'s!');
+            console.error('Can\'t find Blueprints ID\'s!');
         }
     } catch(error: any) {
         console.error(error);

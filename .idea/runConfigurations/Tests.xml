@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Test All" type="NodeJsTestRunner">
+    <node-interpreter value="node" />
+    <node-options value="-r ts-node/register/transpile-only" />
+    <working-dir value="$PROJECT_DIR$" />
+    <language value="TYPE_SCRIPT" />
+    <typescript-loader value="MANUAL_SETUP_IN_NODE_OPTION" />
+    <envs />
+    <scope-kind value="ALL" />
+    <method v="2" />
+  </configuration>
+</component>

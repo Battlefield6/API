@@ -4,3 +4,5 @@
 package-lock.json
 .env
 dist/
+.idea/misc.xml
+.idea/vcs.xml
