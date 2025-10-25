@@ -1,19 +1,16 @@
 # gRPC / protobuf API
+
+> [!WARNING]
+> This interface is still experimental and currently under development.
+
 This is an basic API to work with **DICE**'s Portal-Server (`Battlefield 6`).
 
-**NPM** [battlefield6-api](https://www.npmjs.com/package/battlefield6-api)
+[![npm](https://img.shields.io/npm/v/battlefield6-api)](https://www.npmjs.com/package/battlefield6-api)
 
-## Configuration
-Before you start, set the current `sessionId` at the configuration, otherwise you will get an **Exception**:
-> **SessionException [Error]:** The request does not have valid authentication credentials for the operation.
-```ts
-Configuration.setSession('web-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx');
-```
+## Documentation
+You can find complete documentation here:
 
-## Installation
-> WinGet install Google.Protobuf
+[![WIKI]](https://github.com/Battlefield6/API/wiki)
 
-> npm install
 
-## Building
-> npm run proto:generate
+[WIKI]: https://img.shields.io/badge/Wiki-%24?style=for-the-badge&logo=github&color=%230d1117
