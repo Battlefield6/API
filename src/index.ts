@@ -1,6 +1,6 @@
 /**
  * @author      Adrian Preuß
- * @version     1.0.0
+ * @since       1.0.0
  */
 
 import Connector from './Connector';
@@ -14,8 +14,10 @@ export * from './backends';
 export * from './enums';
 export * from './models';
 
-// Create singleton instance and export backend instances
+/* @ignore */
 const instance: Connector               = new Connector();
+
+/* @ignore */
 const config: Configuration             = instance.getConfig();
 
 export {
@@ -23,9 +25,32 @@ export {
     config as Configuration
 };
 
-// Export backend instances
+/**
+ * Authentication backend instance (Singleton)
+ * @category Backends
+ */
 export const Authentication = instance.getAuthentication();
+
+/**
+ * Blueprints backend instance (Singleton)
+ * @category Backends
+ */
 export const Blueprints = instance.getBlueprints();
+
+/**
+ * PlayElements backend instance (Singleton)
+ * @category Backends
+ */
 export const PlayElements = instance.getPlayElements();
+
+/**
+ * Experience backend instance (Singleton)
+ * @category Backends
+ */
 export const Experience = instance.getExperience();
+
+/**
+ * Mod backend instance (Singleton)
+ * @category Backends
+ */
 export const Mod = instance.getMod();

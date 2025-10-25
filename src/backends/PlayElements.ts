@@ -1,6 +1,6 @@
 /**
  * @author      Adrian Preuß
- * @version     1.0.0
+ * @since     1.0.0
  */
 import {
     GetOwnedPlayElementsRequest,
@@ -19,7 +19,12 @@ import { PublishState } from '../';
 import REST from '../REST';
 import PlayElement from '../models/PlayElement';
 
-export default class PlayElements {
+/**
+ * @class PlayElements
+ * @category Backends
+ * @hideconstructor
+ */
+class PlayElements {
     private connector: Connector;
 
     constructor(connector: Connector) {
@@ -145,3 +150,6 @@ export default class PlayElements {
         return new PlayElement().fromJSON(responseMessage);
     }
 }
+
+export { PlayElements };
+export default PlayElements;

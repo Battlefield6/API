@@ -1,10 +1,10 @@
 /**
  * @author      Adrian Preuß
- * @version     1.0.0
+ * @since       1.0.0
  */
 
-export { default as Authentication } from './Authentication';
-export { default as Blueprints } from './Blueprints';
-export { default as Experience } from './Experience';
-export { default as Mod } from './Mod';
-export { default as PlayElements } from './PlayElements';
+export { Authentication, default as AuthenticationDefault } from './Authentication';
+export { Blueprints, default as BlueprintsDefault } from './Blueprints';
+export { Experience, default as ExperienceDefault } from './Experience';
+export { Mod, default as ModDefault } from './Mod';
+export { PlayElements, default as PlayElementsDefault } from './PlayElements';

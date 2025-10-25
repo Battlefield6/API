@@ -1,6 +1,6 @@
 /**
  * @author      Adrian Preuß
- * @version     1.0.0
+ * @since     1.0.0
  */
 
 import {
@@ -18,7 +18,12 @@ import REST from '../REST';
 
     @permissions VIP
 */
-export default class Mod {
+/**
+ * @class Mod
+ * @category Backends
+ * @hideconstructor
+ */
+class Mod {
     private connector: Connector;
 
     constructor(connector: Connector) {
@@ -57,3 +62,6 @@ export default class Mod {
         return CreateModDataVersionResponse.decode(response);
     }
 }
+
+export { Mod };
+export default Mod;

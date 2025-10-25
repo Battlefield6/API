@@ -1,6 +1,6 @@
 /**
  * @author      Adrian Preuß
- * @version     1.0.0
+ * @since     1.0.0
  */
 
 import {
@@ -14,14 +14,21 @@ import Connector from '../Connector';
 import REST from '../REST';
 import Blueprint from "../models/Blueprint";
 import {BlueprintId} from "../generated/models/BlueprintId";
-
-export default class Blueprints {
+/**
+ * @class Blueprints
+ * @category Backends
+ * @hideconstructor
+ */
+class Blueprints {
     private connector: Connector;
 
     constructor(connector: Connector) {
         this.connector = connector;
     }
 
+    /**
+     * List all available blueprints.
+     */
     public async list(): Promise<Blueprint[] | null> {
         const request = GetScheduledBlueprintsRequest.fromPartial({});
         const bytes: Uint8Array = GetScheduledBlueprintsRequest.encode(request).finish();
@@ -46,7 +53,12 @@ export default class Blueprints {
         return blueprints;
     }
 
-    public async get(blueprintIds: BlueprintId[]): Promise<Blueprint[] | null> {
+    /**
+     * Get all blueprints by given id's.
+     *
+     * @param ids Array of blueprint ids.
+     */
+    public async get(ids: BlueprintId[]): Promise<Blueprint[] | null> {
         const request = GetBlueprintsByIdRequest.fromPartial({blueprintIds});
         const bytes: Uint8Array = GetBlueprintsByIdRequest.encode(request).finish();
         const response: Uint8Array | null = await REST.post(this.connector.getConfig().getURL('getBlueprintsById'), bytes, {
@@ -75,3 +87,6 @@ export default class Blueprints {
         return results;
     }
 }
+
+export { Blueprints };
+export default Blueprints;

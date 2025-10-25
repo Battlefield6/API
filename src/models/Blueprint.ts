@@ -52,11 +52,11 @@ export default class Blueprint {
         return this.thumbnails[index];
     }
 
-    public addThumbnail(url: string) {
+    public addThumbnail(url: string): void {
        this.thumbnails.push(url);
     }
 
-    public removeThumbnail(index: number) {
+    public removeThumbnail(index: number): void {
         this.thumbnails.splice(index, 1);
     }
 

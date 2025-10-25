@@ -1,6 +1,6 @@
 /**
  * @author      Adrian Preuß
- * @version     1.0.0
+ * @since       1.0.0
  */
 
 import {
@@ -13,7 +13,12 @@ import { BlueprintId } from '../generated/models/BlueprintId';
 import Connector from '../Connector';
 import REST from '../REST';
 
-export default class Experience {
+/**
+ * @class Experience
+ * @category Backends
+ * @hideconstructor
+ */
+class Experience {
     private connector: Connector;
 
     constructor(connector: Connector) {
@@ -41,3 +46,6 @@ export default class Experience {
         return ListExperiencesResponse.decode(response);
     }
 }
+
+export { Experience };
+export default Experience;

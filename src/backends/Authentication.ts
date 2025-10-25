@@ -1,6 +1,6 @@
 /**
  * @author      Adrian Preuß
- * @version     1.0.0
+ * @since       1.0.0
  */
 
 import {
@@ -12,7 +12,15 @@ import {
 import Connector from '../Connector';
 import REST from '../REST';
 
-export default class Authentication {
+/**
+ * Under developent, currently ignoring!
+ *
+ * @class Authentication
+ * @category Backends
+ * @hideconstructor
+ * @ignore
+ */
+class Authentication {
     private connector: Connector;
 
     constructor(connector: Connector) {
@@ -51,3 +59,6 @@ export default class Authentication {
         return AuthenticationResponse.decode(response);
     }
 }
+
+export { Authentication };
+export default Authentication;
