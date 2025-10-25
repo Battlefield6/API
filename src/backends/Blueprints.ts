@@ -59,7 +59,7 @@ class Blueprints {
      * @param ids Array of blueprint ids.
      */
     public async get(ids: BlueprintId[]): Promise<Blueprint[] | null> {
-        const request = GetBlueprintsByIdRequest.fromPartial({blueprintIds});
+        const request = GetBlueprintsByIdRequest.fromPartial({ blueprintIds: ids});
         const bytes: Uint8Array = GetBlueprintsByIdRequest.encode(request).finish();
         const response: Uint8Array | null = await REST.post(this.connector.getConfig().getURL('getBlueprintsById'), bytes, {
             'Origin': `https://${this.connector.getConfig().getTarget()}`,
