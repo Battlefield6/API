@@ -15,13 +15,19 @@ const project = new Project({
 
 // Helper: Clean output directory
 function cleanOutputDir() {
-    if (fs.existsSync(OUTPUT_DIR)) {
-        fs.rmSync(OUTPUT_DIR, { recursive: true });
-    }
     fs.mkdirSync(OUTPUT_DIR, { recursive: true });
-    fs.mkdirSync(path.join(OUTPUT_DIR, 'Backends'), { recursive: true });
-    fs.mkdirSync(path.join(OUTPUT_DIR, 'Models'), { recursive: true });
-    fs.mkdirSync(path.join(OUTPUT_DIR, 'Enums'), { recursive: true });
+
+    for(let dest of [
+        'Backends',
+        'Models',
+        'Enums'
+    ]) {
+        if (fs.existsSync(path.join(OUTPUT_DIR, dest))) {
+            fs.rmSync(path.join(OUTPUT_DIR, dest), { recursive: true });
+        }
+
+        fs.mkdirSync(path.join(OUTPUT_DIR, dest), { recursive: true });
+    }
 }
 
 // Helper: Extract JSDoc tags
