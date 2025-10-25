@@ -9,7 +9,7 @@ import test from'node:test';
 
 /* Core */
 import { config } from 'dotenv';
-import {Configuration, Blueprints, Blueprint} from '../../src';
+import {Configuration, Blueprints, Blueprint, SessionException} from '../../src';
 
 config();
 
@@ -25,6 +25,10 @@ console.log('++++++++++++++++++++++++++++++++++++++++ Blueprints List ++++++++++
 
 /* Starting Tests */
 test("List all Blueprints", async (t) => {
-    const blueprints: Blueprint[] | null = await Blueprints.list();
-    console.log('Blueprints:', blueprints);
+    try {
+        const blueprints: Blueprint[] | null = await Blueprints.list();
+        console.log('Blueprints:', blueprints);
+    } catch(error: SessionException) {
+        assert.fail('Session expired!');
+    }
 });
