@@ -3,6 +3,7 @@
 /src/generated
 package-lock.json
 .env
+.wiki/
 dist/
 .idea/misc.xml
 .idea/vcs.xml
