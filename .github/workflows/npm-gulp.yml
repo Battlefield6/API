@@ -1,28 +1,79 @@
-name: NodeJS with Gulp
+name: Build and Test
 
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+on: push
+
+permissions: read-all
+
+env:
+  PROTOC_VERSION: "33.0"
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [18.x, 20.x, 22.x]
+    env:
+      PROTOC: protoc-release/bin/protoc
+      PROTOC_INC: protoc-release/include
+      PROTOC_PLATFORM: linux-x86_64
 
     steps:
-    - uses: actions/checkout@v4
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
+      - uses: actions/checkout@v4
 
-    - name: Build
-      run: |
-        npm install
-        gulp
+      - uses: actions/setup-node@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          node-version: 20
+          cache: ${{ !env.ACT && 'npm' || '' }} # cache API not available in ACT
+
+      - name: Install Protoc
+        run: |
+          echo "Fetching protoc"
+          curl --header 'Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+            -L https://github.com/protocolbuffers/protobuf/releases/download/v${PROTOC_VERSION}/protoc-${PROTOC_VERSION}-${PROTOC_PLATFORM}.zip \
+            --output protoc-release.zip
+          unzip protoc-release.zip -d protoc-release
+          rm protoc-release.zip
+
+      - run: npm ci
+
+      - run: npm test
+
+      - run: npm run build
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: js
+          path: |
+            google-protobuf.js
+            google
+
+  package:
+    needs: build
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-2022
+            cpu: x64_windows
+            bazel_target: dist_zip
+          - os: windows-2022
+            cpu: x64_x86_windows
+            bazel_target: dist_zip
+          - os: macos-14
+            cpu: darwin_arm64
+            bazel_target: dist_zip
+          - os: macos-13
+            cpu: darwin_x86_64
+            bazel_target: dist_zip
+
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+      - run: cp bazel-bin/protobuf-javascript-* out/
+        with:
+          node-version: ${{ matrix.node-version }}
