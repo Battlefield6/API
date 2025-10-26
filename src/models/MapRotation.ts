@@ -6,7 +6,7 @@
 import Map from './Map';
 
 export default class MapRotation {
-    public maps: Map[] = [];
+    private maps: Map[] = [];
 
     public getMaps(): Map[] {
         return this.maps;

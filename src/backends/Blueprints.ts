@@ -8,12 +8,13 @@ import {
     GetBlueprintsByIdResponse, GetOwnedPlayElementsResponse,
     GetScheduledBlueprintsRequest,
     GetScheduledBlueprintsResponse, PlayElementResponse,
-} from "../generated/Main";
+} from "../generated";
 
 import Connector from '../Connector';
 import REST from '../REST';
 import Blueprint from "../models/Blueprint";
 import {BlueprintId} from "../generated/models/BlueprintId";
+
 /**
  * @class Blueprints
  * @category Backends

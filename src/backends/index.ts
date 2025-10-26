@@ -6,5 +6,5 @@
 export { Authentication, default as AuthenticationDefault } from './Authentication';
 export { Blueprints, default as BlueprintsDefault } from './Blueprints';
 export { Experience, default as ExperienceDefault } from './Experience';
-export { Mod, default as ModDefault } from './Mod';
+export { Mods, default as ModsDefault } from './Mods';
 export { PlayElements, default as PlayElementsDefault } from './PlayElements';

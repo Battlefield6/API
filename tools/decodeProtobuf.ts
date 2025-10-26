@@ -1,5 +1,5 @@
-import { UpdatePlayElementRequest } from "../generated/models/UpdatePlayElementRequest";
-import { PlayElement } from "../generated/models/PlayElement";
+import { UpdatePlayElementRequest } from "../src/generated/models/UpdatePlayElementRequest";
+import { PlayElement } from "../src/generated/models/PlayElement";
 
 /**
  * Dekodiert gRPC-Web Frame (verwendet die gleiche Logik wie REST.decode)

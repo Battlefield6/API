@@ -3,6 +3,6 @@ syntax = "proto3";
 package santiago.web.play;
 
 message MutatorSparseBooleanEntry {
-   uint32 index = 1;
-   bool value = 2;
+  uint32 index = 1;
+  bool value = 2;
 }

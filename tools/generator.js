@@ -4,13 +4,13 @@
  * @author      Adrian Preuß
  * @version     1.0.0
  */
-const { execSync }  = require('child_process');
-const Path          = require('path');
-const FileSystem    = require('fs');
-const HTTPS         = require('https');
+const { execSync }          = require('child_process');
+const Path      = require('path');
+const FileSystem            = require('fs');
+const HTTPS                 = require('https');
 
 async function downloadGoogleProtos() {
-  const target = Path.join(__dirname, 'proto', 'google', 'protobuf');
+  const target = Path.join(__dirname, '..', 'proto', 'google', 'protobuf');
 
   if(!FileSystem.existsSync(target)) {
     FileSystem.mkdirSync(target, { recursive: true });
@@ -46,10 +46,10 @@ async function downloadGoogleProtos() {
 }
 
 const config = {
-  protoPath:        Path.join(__dirname, 'proto'),
-  outputPath:       Path.join(__dirname, 'src', 'generated'),
-  googleProtoPath:  Path.join(__dirname, 'proto', 'google'),
-  plugin:           Path.join(__dirname, 'node_modules', '.bin', 'protoc-gen-ts_proto'),
+  protoPath:        Path.join(__dirname, '..', 'proto'),
+  outputPath:       Path.join(__dirname, '..', 'src', 'generated'),
+  googleProtoPath:  Path.join(__dirname, '..', 'proto', 'google'),
+  plugin:           Path.join(__dirname, '..', 'node_modules', '.bin', 'protoc-gen-ts_proto'),
   protoFiles: [
     'Main.proto'
   ],

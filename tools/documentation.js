@@ -8,6 +8,12 @@ const BACKENDS_DIR = 'src/backends';
 const MODELS_DIR = 'src/models';
 const ENUMS_DIR = 'src/enums';
 
+const BASE = 'https://github.com/Battlefield6/API/wiki/';
+const INDENT = '⠀';
+const ICON_MODEL = getIcon('Models.png');
+const ICON_BACKEND = getIcon('Backend.png');
+const ICON_ENUM = getIcon('Enumeration.png');
+
 // Initialize project
 const project = new Project({
     tsConfigFilePath: 'tsconfig.json'
@@ -57,10 +63,18 @@ function hasJsDocTag(node, tagName) {
 // Helper: Get full JSDoc comment
 function getJsDocComment(node) {
     const jsDocs = node.getJsDocs();
-    if (jsDocs.length > 0) {
-        return jsDocs[0].getDescription().trim();
+    // Try to find the first JSDoc with a non-empty description
+    for (const doc of jsDocs) {
+        const description = doc.getDescription().trim();
+        if (description) {
+            return description;
+        }
     }
     return '';
+}
+
+function fixHTML(html) {
+    return html.replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
 // Helper: Clean up type strings
@@ -99,33 +113,69 @@ function getParamDescription(method, paramName) {
     return '';
 }
 
+function createTable(headers, data) {
+    var table = '';
+
+    table += '<table><thead><tr>';
+    table += headers.map(header => `<th width="500px">${header}</th>`).join('');
+    table += '</tr></thead><tbody><tr width="600px">';
+
+    for(const row of data) {
+        let entry = '<tr>';
+
+        for(const cell of row) {
+            entry += `<td valign="top">${cell}</td>`;
+        }
+
+        entry += '</tr>';
+
+        table += entry;
+    }
+
+    table += '</tr></tbody></table>';
+
+    return table;
+
+}
+
 // Helper: Format method parameters as table
 function formatParameters(method) {
     const params = method.getParameters();
-    if (params.length === 0) return '';
 
-    let result = '\n\n**Parameters:**\n\n';
-    result += '| Name | Type | Description |\n';
-    result += '|------|------|-------------|\n';
-
-    for (const param of params) {
-        const name = param.getName();
-        const type = cleanTypeString(param.getType().getText());
-        const optional = param.isOptional() ? ' *(optional)*' : '';
-        const defaultValue = param.getInitializer() ? ` (default: \`${param.getInitializer().getText()}\`)` : '';
-        const description = getParamDescription(method, name) || '-';
-
-        result += `| \`${name}\`${optional} | \`${type}\` | ${description}${defaultValue} |\n`;
+    if(params.length === 0) {
+        return '';
     }
+
+    let result = '\n\n###### Parameters\n\n';
+    let data    = [];
+
+    for(const param of params) {
+        const name                  = param.getName();
+        const type                  = cleanTypeString(param.getType().getText());
+        const optional      = param.isOptional() ? ' *(optional)*' : '';
+        const defaultValue  = param.getInitializer() ? ` (default: \`${param.getInitializer().getText()}\`)` : '';
+        const description   = getParamDescription(method, name) || '';
+
+        data.push([
+            `<b>${name}</b>${optional}`,
+            `<pre copy="false" lang="typescript">${type}</pre>`,
+            `${description}${defaultValue}`
+        ]);
+    }
+
+    result += createTable([
+        'Name', 'Type', 'Description'
+    ], data);
 
     return result;
 }
 
 // Helper: Format return type
 function formatReturnType(method) {
-    const returnType = cleanTypeString(method.getReturnType().getText());
+    let returnType = cleanTypeString(method.getReturnType().getText());
+    returnType = fixHTML(returnType);
     if (returnType === 'void') return '';
-    return `\n\n**Returns:** \`${returnType}\``;
+    return `\n\n###### Returns\n\n\<pre lang="typescript">${returnType}</pre>`;
 }
 
 // Helper: Load example for a method (case-insensitive)
@@ -148,7 +198,7 @@ function loadExample(className, methodName) {
         if (matchedFile) {
             const examplePath = path.join(examplesDir, matchedFile);
             const exampleContent = fs.readFileSync(examplePath, 'utf-8');
-            return `\n\n**Example:**\n\n\`\`\`typescript\n${exampleContent.trim()}\n\`\`\`\n`;
+            return `\n\n###### Example\n\n\`\`\`typescript copy\n${exampleContent.trim()}\n\`\`\`\n`;
         }
     } catch (err) {
         // Directory doesn't exist or can't be read
@@ -161,6 +211,8 @@ function loadExample(className, methodName) {
 // Generate documentation for a class
 function generateClassDoc(cls, category = '') {
     const className = cls.getName();
+    let specials = [];
+
     if (!className) return null;
 
     // Skip if @ignore is present
@@ -169,6 +221,7 @@ function generateClassDoc(cls, category = '') {
     const description = getJsDocComment(cls);
     const author = getJsDocTag(cls, 'author');
     const since = getJsDocTag(cls, 'since');
+    const requires = getJsDocTag(cls, 'requires');
 
     let clazz = false;
     let markdown = ''; //`# ${className}\n\n`;
@@ -176,6 +229,23 @@ function generateClassDoc(cls, category = '') {
     if (description) {
         markdown += `${description}\n\n`;
         clazz = true;
+    }
+
+    if(requires) {
+        let list = requires.split(',');
+
+        markdown += '> [!IMPORTANT]\n';
+        markdown += '> This Backend requires following **Account-Status**:\n';
+
+        for(const item of list) {
+            markdown += `> ${getIcon(item.trim() + '.png', item.trim())}\n`;
+
+            if(item.includes(item)) {
+                specials.push(item);
+            }
+        }
+
+        markdown += `\n`;
     }
 
     if (author || since) {
@@ -189,7 +259,7 @@ function generateClassDoc(cls, category = '') {
     if (!hasJsDocTag(cls, 'hideconstructor') && constructor && constructor.getParameters().length > 0) {
         clazz = true;
         markdown += `## Constructor\n\n`;
-        markdown += `\`\`\`typescript\nnew ${className}(${constructor.getParameters().map(p => p.getName()).join(', ')})\n\`\`\`\n`;
+        markdown += `\`new ${className}(${constructor.getParameters().map(p => p.getName()).join(', ')})\`\n`;
         markdown += formatParameters(constructor);
         markdown += `\n\n`;
     }
@@ -207,10 +277,11 @@ function generateClassDoc(cls, category = '') {
         }
 
         for (const method of methods) {
+            var methodOutput = '<details>';
+
             const methodName = method.getName();
             const methodDesc = getJsDocComment(method);
             const isAsync = method.isAsync();
-
             const params = method.getParameters().map(p => {
                 const name = p.getName();
                 const optional = p.isOptional() ? '?' : '';
@@ -219,25 +290,70 @@ function generateClassDoc(cls, category = '') {
 
             const returnType = cleanTypeString(method.getReturnType().getText(), true);
 
-            markdown += `-----\n\n`;
-            markdown += `## \`${methodName}(${params}): ${returnType}\`\n\n`;
+            methodOutput += `<summary>${methodDesc}<pre lang="typescript">${methodName}(${params}): ${returnType}</pre></summary>`;
 
-            if (methodDesc) {
-                markdown += `> ${methodDesc}\n\n`;
-            }
+            methodOutput += formatParameters(method);
+            methodOutput += formatReturnType(method);
 
-            markdown += formatParameters(method);
-            markdown += formatReturnType(method);
-
-            markdown += `---\n\n`;
             // Load example if exists
-            markdown += loadExample(className, methodName);
+            methodOutput += loadExample(className, methodName);
 
-            markdown += `\n\n`;
+            methodOutput += `\n\n`;
+            methodOutput += `-----\n\n`;
+            methodOutput += '</details>';
+
+            markdown += methodOutput;
         }
     }
 
-    return { name: className, content: markdown };
+    return { name: className, content: markdown, special: specials };
+}
+
+// Helper: Escape description for table cell and convert lists to HTML
+function escapeTableDescription(text) {
+    if (!text) return '';
+
+    // Split into lines
+    const lines = text.split('\n').map(line => line.trim());
+
+    let result = '';
+    let inList = false;
+    let listItems = [];
+
+    for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+
+        // Check if line is a list item (starts with -, *, or (a), (b), etc.)
+        const listMatch = line.match(/^[-*]\s+(.+)$/) || line.match(/^\([a-z]\)\s+(.+)$/);
+
+        if (listMatch) {
+            if (!inList) {
+                inList = true;
+                listItems = [];
+            }
+            listItems.push(listMatch[1]);
+        } else {
+            // Not a list item
+            if (inList) {
+                // Close the previous list
+                result += '<ul>' + listItems.map(item => `<li>${item}</li>`).join('') + '</ul>';
+                inList = false;
+                listItems = [];
+            }
+
+            if (line) {
+                if (result) result += ' ';
+                result += line;
+            }
+        }
+    }
+
+    // Close any remaining list
+    if (inList) {
+        result += '<ul>' + listItems.map(item => `<li>${item}</li>`).join('') + '</ul>';
+    }
+
+    return result.trim();
 }
 
 // Generate documentation for an enum
@@ -251,36 +367,51 @@ function generateEnumDoc(enumDecl) {
     const author = getJsDocTag(enumDecl, 'author');
     const since = getJsDocTag(enumDecl, 'since');
 
-    let markdown = `# ${enumName}\n\n`;
+    let markdown = ''; //`# ${enumName}\n\n`;
 
     if (description) {
         markdown += `${description}\n\n`;
     }
 
+    /*
     if (author || since) {
         markdown += `---\n\n`;
         if (author) markdown += `**Author:** ${author}\n\n`;
         if (since) markdown += `**Since:** ${since}\n\n`;
-    }
+    }*/
 
-    markdown += `## Values\n\n`;
+    //markdown += `## Values\n\n`;
 
     const members = enumDecl.getMembers();
+    markdown += '| Name | Exception | Description |\n';
+    markdown += '|------|------|-------------|\n';
+
     for (const member of members) {
         const name = member.getName();
         const value = member.getValue();
         const memberDesc = getJsDocComment(member);
+        const escapedDesc = escapeTableDescription(memberDesc) || '';
+        let exception = getJsDocTag(member, 'exception');
 
-        markdown += `### ${name}\n\n`;
-        if (memberDesc) {
-            markdown += `${memberDesc}\n\n`;
+        if(exception) {
+            exception = `\`${exception}\``;
         }
-        if (value !== undefined) {
-            markdown += `**Value:** \`${value}\`\n\n`;
-        }
+
+        markdown += `| \`${enumName}.${name}\` | ${exception} | ${escapedDesc} |\n`;
     }
 
     return { name: enumName, content: markdown };
+}
+
+function getIcon(icon, tooltip = '') {
+    var image = '';
+
+    image += '<picture>';
+    image += `<source media="(prefers-color-scheme: dark)" srcset="${BASE}Assets/Dark/Icons/${icon}#gh-dark-mode-only">`;
+    image += `<img alt="" valign="middle" title="${tooltip}" src="${BASE}Assets/Light/Icons/${icon}">`;
+    image += '</picture>';
+
+    return image;
 }
 
 // Process Backends
@@ -384,36 +515,152 @@ function processEnums() {
 function generateSidebar(backends, models, enums) {
     console.log('Generating _Sidebar.md...');
 
-    let sidebar = `# Documentation\n\n`;
+    let sidebar = '';
 
-    if (backends.length > 0) {
-        sidebar += `## Backends\n\n`;
+    sidebar += `<h6>General</h6>`;
+    sidebar += `<p><small>The actual abstraction layer for retrieving or sending data from the portal server.</small></p>`;
+
+    for(const site of [
+        {
+            name: 'Installation',
+            icon: getIcon('Installation.png')
+        }, {
+            name: 'Usage',
+            icon: getIcon('Settings.png')
+        }, {
+            name: 'Examples',
+            icon: getIcon('Examples.png')
+        }
+    ]) {
+        sidebar += `<p>${INDENT + INDENT}${site.icon} <a href="${site.name}">${site.name}</a></p>`;
+    }
+
+    if(backends.length > 0) {
+        sidebar += `<h6>Backends</h6>`;
+        sidebar += `<p><small>The actual abstraction layer for retrieving or sending data from the portal server.</small></p>`;
         backends.sort((a, b) => a.name.localeCompare(b.name));
-        for (const backend of backends) {
-            sidebar += `- [${backend.name}](Backends/${backend.name}.md)\n`;
+
+        for(const backend of backends) {
+            sidebar += '<p>';
+            sidebar += `${INDENT + INDENT}${ICON_BACKEND} `;
+            sidebar += `<a href="${backend.name}">${backend.name}</a>`;
+
+            if(backend.special.length > 0) {
+               if(backend.special.indexOf('VIP') !== -1) {
+                   sidebar += INDENT + INDENT + getIcon('VIP.png', 'Account requires VIP!');
+               }
+            }
+
+            sidebar += '</p>';
         }
-        sidebar += `\n`;
     }
 
-    if (models.length > 0) {
-        sidebar += `## Models\n\n`;
+    if(models.length > 0) {
+        sidebar += `<h6>Models</h6>`;
+        sidebar += `<p><small>Model data for simplified use of the data.</small></p>`;
         models.sort((a, b) => a.name.localeCompare(b.name));
-        for (const model of models) {
-            sidebar += `- [${model.name}](Models/${model.name}.md)\n`;
+
+        for(const model of models) {
+            sidebar += `<p>${INDENT + INDENT}${ICON_MODEL} <a href="${model.name}">${model.name}</a></p>`;
         }
-        sidebar += `\n`;
     }
 
-    if (enums.length > 0) {
-        sidebar += `## Enums\n\n`;
+    if(enums.length > 0) {
+        sidebar += `<h6>Enum</h6>`;
+        sidebar += `<p><small>Static data and informations.</small></p>`;
         enums.sort((a, b) => a.name.localeCompare(b.name));
-        for (const enumDoc of enums) {
-            sidebar += `- [${enumDoc.name}](Enums/${enumDoc.name}.md)\n`;
+
+        for(const enumDoc of enums) {
+            sidebar += `<p>${INDENT + INDENT}${ICON_ENUM} <a href="${enumDoc.name}">${enumDoc.name}</a></p>`;
         }
-        sidebar += `\n`;
     }
+
+    sidebar += '<br />';
 
     fs.writeFileSync(path.join(OUTPUT_DIR, '_Sidebar.md'), sidebar);
+}
+
+// Generate Main.md
+function generateMain(backends, models, enums) {
+    console.log('Generating Main.md...');
+
+    /* GENERAL */
+    let general = '<h4>General</h4>';
+
+    for(const site of [
+        {
+            name: 'Installation',
+            icon: getIcon('Installation.png')
+        }, {
+            name: 'Usage',
+            icon: getIcon('Settings.png')
+        }, {
+            name: 'Examples',
+            icon: getIcon('Examples.png')
+        }
+    ]) {
+        general += `<p>${INDENT + INDENT}${site.icon} <a href="${site.name}">${site.name}</a></p>`;
+    }
+
+    general += '<br />';
+
+    /* EXAMPLES */
+    let examples = '<h4>Examples</h4>';
+
+    for(const site of [
+        {
+            name: 'Basic Setup',
+            icon: ''
+        }
+    ]) {
+        examples += `<p>${INDENT + INDENT}${site.icon} <a href="${site.name}">${site.name}</a></p>`;
+    }
+
+    /* Backends */
+    let core = '<h4>Backends</h4>';
+
+    if(backends.length > 0) {
+        backends.sort((a, b) => a.name.localeCompare(b.name));
+
+        for(const backend of backends) {
+            core += '<p>';
+            core += `${INDENT + INDENT}${ICON_BACKEND} `;
+            core += `<a href="${backend.name}">${backend.name}</a>`;
+
+            if(backend.special.length > 0) {
+                if(backend.special.indexOf('VIP') !== -1) {
+                    core += INDENT + INDENT + getIcon('VIP.png', 'Account requires VIP!');
+                }
+            }
+
+            core += '</p>';
+        }
+
+        core += '<br />';
+    }
+
+    /* Models & Data */
+    let data = '<h4>Models & Enums</h4>';
+
+    if(models.length > 0) {
+        models.sort((a, b) => a.name.localeCompare(b.name));
+
+        for(const model of models) {
+            data += `<p>${INDENT + INDENT}${ICON_MODEL} <a href="${model.name}">${model.name}</a></p>`;
+        }
+    }
+
+    if(enums.length > 0) {
+        enums.sort((a, b) => a.name.localeCompare(b.name));
+
+        for(const enumDoc of enums) {
+            data += `<p>${INDENT + INDENT}${ICON_ENUM} <a href="${enumDoc.name}">${enumDoc.name}</a></p>`;
+        }
+    }
+
+    data += '<br />';
+
+    fs.writeFileSync(path.join(OUTPUT_DIR, 'Home.md'), createTable([ '', '' ], [ [ general, examples ], [ core, data ] ]));
 }
 
 // Main execution
@@ -427,6 +674,7 @@ function main() {
     const enums = processEnums();
 
     generateSidebar(backends, models, enums);
+    generateMain(backends, models, enums);
 
     console.log(`\nDocumentation generated successfully!`);
     console.log(`- Backends: ${backends.length}`);

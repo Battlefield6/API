@@ -2,7 +2,10 @@ syntax = "proto3";
 
 package santiago.web.play;
 
+import "models/mutators/MutatorSparseIntEntry.proto";
+
 message MutatorSparseInt {
-   repeated int32 defaultValue = 1;
-   uint32 size = 2;
+  int32 defaultValue = 1;
+  uint32 size = 2;
+  repeated MutatorSparseIntEntry sparseValues = 3;
 }

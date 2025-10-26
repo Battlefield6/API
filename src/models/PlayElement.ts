@@ -5,17 +5,26 @@
 
 import { PublishState } from '../Connector';
 import MapRotation from './MapRotation';
+import Creator from './Creator';
+import Settings from './Settings';
+import Design from './Design';
 
 export default class PlayElement {
-    public id: string                   = '';
-    public designId: string             = '';
-    public name: string                 = '';
-    public description: string          = '';
-    public created?: Date | null        = null;
-    public updated?: Date | null        = null;
-    public publishState: PublishState   = PublishState.DRAFT;
-    public thumbnailUrl: string | null  = null;
-    public maps: MapRotation            = new MapRotation();
+    private id: string                   = '';
+    private designId: string             = '';
+    private name: string                 = '';
+    private description: string          = '';
+    private created?: Date | null        = null;
+    private updated?: Date | null        = null;
+    private publishState: PublishState   = PublishState.DRAFT;
+    private thumbnailUrl: string | null  = null;
+    private creator: Creator             = new Creator();
+    private settings: Settings           = new Settings();
+    private design: Design               = new Design();
+    private likes: number                = 0;
+    private publishAt?: Date | null      = null;
+    private moderationState: number      = 0;
+    private shortCode: string | null     = null;
 
     public getId(): string {
         return this.id;
@@ -81,6 +90,70 @@ export default class PlayElement {
         this.thumbnailUrl = thumbnailUrl;
     }
 
+    public getCreator(): Creator {
+        return this.creator;
+    }
+
+    public setCreator(creator: Creator): void {
+        this.creator = creator;
+    }
+
+    public getSettings(): Settings {
+        return this.settings;
+    }
+
+    public setSettings(settings: Settings): void {
+        this.settings = settings;
+    }
+
+    public getDesign(): Design {
+        return this.design;
+    }
+
+    public setDesign(design: Design): void {
+        this.design = design;
+    }
+
+    public getLikes(): number {
+        return this.likes;
+    }
+
+    public setLikes(likes: number): void {
+        this.likes = likes;
+    }
+
+    public getPublishAt(): Date | null {
+        return this.publishAt ?? null;
+    }
+
+    public setPublishAt(publishAt: Date): void {
+        this.publishAt = publishAt;
+    }
+
+    public getModerationState(): number {
+        return this.moderationState;
+    }
+
+    public setModerationState(moderationState: number): void {
+        this.moderationState = moderationState;
+    }
+
+    public getShortCode(): string | null {
+        return this.shortCode;
+    }
+
+    public setShortCode(shortCode: string | null): void {
+        this.shortCode = shortCode;
+    }
+
+    public getMaps(): MapRotation {
+        return this.design.getMapRotation();
+    }
+
+    public setMaps(maps: MapRotation): void {
+        this.design.setMapRotation(maps);
+    }
+
     public fromJSON(data: any): PlayElement {
         let element = data.playElement;
         let design  = data.playElementDesign;
@@ -103,7 +176,7 @@ export default class PlayElement {
             }
 
             if(element.description) {
-                this.description = element.description.value;
+                this.description = element.description.value || element.description;
             }
 
             if(element.created) {
@@ -120,88 +193,90 @@ export default class PlayElement {
                 this.publishState = element.publishState;
             }
 
-            if(element.thumbnailUrl && element.thumbnailUrl.value) {
-                this.thumbnailUrl = element.thumbnailUrl.value;
+            if(element.thumbnailUrl) {
+                this.thumbnailUrl = element.thumbnailUrl.value || element.thumbnailUrl;
+            }
+
+            if(element.creator) {
+                this.creator.fromJSON(element.creator);
+            }
+
+            if(element.playElementSettings) {
+                this.settings.fromJSON(element.playElementSettings);
+            }
+
+            if(element.likes) {
+                this.likes = element.likes.value || element.likes;
+            }
+
+            if(element.publishAt) {
+                this.publishAt = new Date(element.publishAt);
+            }
+
+            if(element.moderationState !== undefined) {
+                this.moderationState = element.moderationState;
+            }
+
+            if(element.shortCode) {
+                this.shortCode = element.shortCode.value || element.shortCode;
             }
         }
 
         if(design) {
-            if(design.mapRotation) {
-                this.maps.fromJSON(design.mapRotation);
-            }
+            this.design.fromJSON(design);
         }
-
-        /*
-        playElementDesign: {
-    designId: '258c5b30-ab89-11f0-9de5-324ffafd7bd2',
-    designName: 'Remix for Coupe(Example 1760726596235)',
-    created: 2025-10-17T18:43:17.000Z,
-    designMetadata: { progressionMode: [Object], firstPartyMetadata: undefined },
-    mapRotation: { maps: [Array], attributes: [Object] },
-    mutators: [],
-    assetCategories: [],
-    licenseRequirements: [],
-    modRules: undefined,
-    tags: [ [Object] ],
-    blazeSettings: undefined,
-    modLevelDataId: undefined,
-    attachments: [],
-    groupLicenses: [],
-    attachmentCompileStatus: 3,
-    serverHostLicenseRequirements: []
-  },
-        {
-            creator: {
-                internalCreator: undefined,
-                playerCreator: [Object],
-                externalCreator: undefined,
-                trustedCreator: undefined
-            },
-            playElementSettings: { secret: undefined, messages: [], allowCopies: false },
-            likes: { value: 0 },
-            publishAt: undefined,
-            moderationState: 0,
-            shortCode: undefined
-        },
-        */
 
         return this;
     }
 
     public toJSON(): any {
-        var object: any = {};
-
-        object.id = this.id;
-        object.publishState = this.publishState;
-
-        if(this.designId) {
-            object.designId = this.designId;
-        }
-
-        if(this.name) {
-            object.name = this.name;
-        }
+        const object: any = {
+            playElement: {
+                id: this.id,
+                designId: this.designId,
+                name: this.name,
+                publishState: this.publishState,
+                moderationState: this.moderationState
+            },
+            playElementDesign: this.design.toJSON()
+        };
 
         if(this.description) {
-            object.description = { value: this.description };
+            object.playElement.description = { value: this.description };
         }
 
         if(this.created) {
-            object.created = { value: this.created };
+            object.playElement.created = this.created;
         }
 
         if(this.updated) {
-            object.updated = { value: this.updated };
+            object.playElement.updated = this.updated;
         }
 
         if(this.thumbnailUrl) {
-            object.thumbnailUrl = { value: this.thumbnailUrl };
+            object.playElement.thumbnailUrl = { value: this.thumbnailUrl };
         }
 
-        if(this.maps) {
-            if(!this.maps.isEmpty()) {
-                object.mapRotation = this.maps.toJSON();
-            }
+        const creatorJSON = this.creator.toJSON();
+        if(Object.keys(creatorJSON).length > 0) {
+            object.playElement.creator = creatorJSON;
+        }
+
+        const settingsJSON = this.settings.toJSON();
+        if(settingsJSON) {
+            object.playElement.playElementSettings = settingsJSON;
+        }
+
+        if(this.likes > 0) {
+            object.playElement.likes = { value: this.likes };
+        }
+
+        if(this.publishAt) {
+            object.playElement.publishAt = this.publishAt;
+        }
+
+        if(this.shortCode) {
+            object.playElement.shortCode = { value: this.shortCode };
         }
 
         return object;

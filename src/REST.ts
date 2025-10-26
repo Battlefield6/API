@@ -54,8 +54,7 @@ export default class REST {
         if(rawBuffer.byteLength === 0) {
             const status    = Number(response.headers.get('grpc-status')) || Status.UNKNOWN;
             const message   = response.headers.get('grpc-message') || '';
-        
-            // @ToDo Enum values!
+
             if(status && status !== Status.OK) {
                 switch(status) {
                     case Status.CANCELLED:

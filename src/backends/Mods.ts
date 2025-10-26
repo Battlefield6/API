@@ -8,7 +8,7 @@ import {
     ListModDataVersionsResponse,
     CreateModDataVersionRequest,
     CreateModDataVersionResponse
-} from "../generated/Main";
+} from "../generated";
 
 import Connector from '../Connector';
 import REST from '../REST';
@@ -21,9 +21,10 @@ import REST from '../REST';
 /**
  * @class Mod
  * @category Backends
+ * @requires VIP
  * @hideconstructor
  */
-class Mod {
+class Mods {
     private connector: Connector;
 
     constructor(connector: Connector) {
@@ -63,5 +64,5 @@ class Mod {
     }
 }
 
-export { Mod };
-export default Mod;
+export { Mods };
+export default Mods;

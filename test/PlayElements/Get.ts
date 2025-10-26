@@ -9,7 +9,7 @@ import test from'node:test';
 
 /* Core */
 import { config } from 'dotenv';
-import {Configuration, PlayElements, PlayElement } from '../../src';
+import {Configuration, PlayElements, PlayElement, Blueprint, Blueprints, SessionException} from '../../src';
 
 config();
 
@@ -25,11 +25,17 @@ console.log('++++++++++++++++++++++++++++++++++++++++ PlayElements Get +++++++++
 
 /* Starting Tests */
 test("Get a specific PlayElement", async (t) => {
-    const playelements: PlayElement[] | null    = await PlayElements.list();
-    const id: string                            = playelements?.[0]?.id ?? '';
+    try {
+        const playelements: PlayElement[] | null    = await PlayElements.list();
+        const id: string                            = playelements?.[0]?.id ?? '';
 
-    console.log('Try to (re-)load:', id);
+        console.log('Try to (re-)load:', id);
 
-    const element: PlayElement | null = await PlayElements.get(id);
-    console.log('PlayElement:', element);
+        const element: PlayElement | null = await PlayElements.get(id);
+        console.log('PlayElement:', element);
+    } catch(error) {
+        if(error instanceof SessionException) {
+            assert.fail('Session expired!');
+        }
+    }
 });

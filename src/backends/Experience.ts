@@ -6,10 +6,8 @@
 import {
     ListExperiencesRequest,
     ListExperiencesResponse
-} from "../generated/Main";
+} from "../generated";
 
-import { PlayExperienceQuery } from '../generated/models/PlayExperienceQuery';
-import { BlueprintId } from '../generated/models/BlueprintId';
 import Connector from '../Connector';
 import REST from '../REST';
 

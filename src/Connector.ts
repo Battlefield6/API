@@ -4,7 +4,7 @@
  */
 
 import Configuration from './Configuration';
-import { Authentication, Blueprints, PlayElements, Experience, Mod } from './backends';
+import { Authentication, Blueprints, PlayElements, Experience, Mods } from './backends';
 import { PublishState } from './generated/enum/PublishState';
 
 export default class Connector {
@@ -15,7 +15,7 @@ export default class Connector {
     private readonly blueprints: Blueprints;
     private readonly playElements: PlayElements;
     private readonly experiences: Experience;
-    private readonly mods: Mod;
+    private readonly mods: Mods;
 
     constructor(config: Configuration = new Configuration()) {
         this.config     = config;
@@ -25,7 +25,7 @@ export default class Connector {
         this.blueprints     = new Blueprints(this);
         this.playElements   = new PlayElements(this);
         this.experiences    = new Experience(this);
-        this.mods           = new Mod(this);
+        this.mods           = new Mods(this);
     }
 
     public getConfig(): Configuration {
@@ -44,7 +44,7 @@ export default class Connector {
         return this.experiences;
     }
 
-    public getMod(): Mod {
+    public getMods(): Mods {
         return this.mods;
     }
 

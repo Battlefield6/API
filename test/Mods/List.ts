@@ -9,7 +9,7 @@ import test from'node:test';
 
 /* Core */
 import { config } from 'dotenv';
-import {Configuration, PlayElements, PlayElement, Blueprint, Blueprints, SessionException} from '../../src';
+import {Blueprint, Blueprints, Configuration, Mods, SessionException} from '../../src';
 
 config();
 
@@ -21,14 +21,13 @@ if(!sessionId) {
 
 Configuration.setSession(sessionId);
 
-console.log('++++++++++++++++++++++++++++++++++++++++ PlayElements List ++++++++++++++++++++++++++++++++++++++++');
+console.log('++++++++++++++++++++++++++++++++++++++++ Mods List ++++++++++++++++++++++++++++++++++++++++');
 
 /* Starting Tests */
-test("List all PlayElements", async (t) => {
+test("List all Mods", async (t) => {
     try {
-        const playelements: PlayElement[] | null = await PlayElements.list();
-
-        console.log('PlayElements:', playelements);
+        const mods = await Mods.list();
+        console.log('Mods:', mods);
     } catch(error) {
         if(error instanceof SessionException) {
             assert.fail('Session expired!');

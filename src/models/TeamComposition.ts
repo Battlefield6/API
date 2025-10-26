@@ -5,8 +5,11 @@
 
 import Team from './Team';
 
+/**
+ *
+ */
 export default class TeamComposition {
-    public teams: Team[] = [];
+    private teams: Team[] = [];
 
     public getTeams(): Team[] {
         return this.teams;

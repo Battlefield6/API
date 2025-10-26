@@ -13,20 +13,15 @@ import { Configuration } from '../src';
 
 config();
 
-const sessionId = process.env.SESSION;
+test('Check Environment', (t) => {
+   assert.notStrictEqual(process.env.SESSION, '', 'Session not set in .env file!');
 
-if(!sessionId) {
-    throw new Error('SESSION not set in .env file');
-}
+    Configuration.setSession(process.env.SESSION ?? '');
+});
 
-Configuration.setSession(sessionId);
-
-test("Check Session", (t) => {
-    const uuidRegex                     = /^web-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+test('Check Session', (t) => {
     const sessionValue: string | null   = Configuration.getSession();
 
-    console.info(`Session: ${sessionValue}`);
-
     assert.notStrictEqual(sessionValue, null, "Session can't be null!");
-    assert.match(sessionValue ?? '', uuidRegex,`Session mismatch: "${sessionValue}"`);
+    assert.match(sessionValue ?? '', /^web-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i,`Session mismatch: "${sessionValue}"`);
 });

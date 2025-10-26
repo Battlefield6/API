@@ -53,4 +53,4 @@ export const Experience = instance.getExperience();
  * Mod backend instance (Singleton)
  * @category Backends
  */
-export const Mod = instance.getMod();
+export const Mods = instance.getMods();

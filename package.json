@@ -19,7 +19,7 @@
     "proto:watch": "nodemon --watch proto --exec npm run proto:generate",
     "prepare": "npm run proto:generate && npm run build",
     "prepublishOnly": "npm run build",
-    "docs": "node ./tools/documentation.js"
+    "docs": "node ./tools/documentation.js && cd ./.wiki/ && git add . && git commit -m \"Automatical update Wiki\" && git push && cd ../"
   },
   "repository": "battlefield6/API",
   "keywords": [
