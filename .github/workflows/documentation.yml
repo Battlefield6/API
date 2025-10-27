@@ -22,8 +22,10 @@ jobs:
         id: cache-protoc
         uses: actions/cache@v4
         with:
-          path: /usr/bin/protoc
-          key: ${{ runner.os }}-protoc-${{ hashFiles('**/package.json') }}
+          path: |
+            /usr/bin/protoc
+            /usr/include/google
+          key: ${{ runner.os }}-protoc-3
       
       - name: Install Protocol Buffers Compiler
         if: steps.cache-protoc.outputs.cache-hit != 'true'
