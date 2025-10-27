@@ -1,0 +1,58 @@
+name: Build Documentation
+
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  build-docs:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout main repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24.1.0'
+      
+      - name: Cache protoc
+        id: cache-protoc
+        uses: actions/cache@v4
+        with:
+          path: |
+            /usr/bin/protoc
+            /usr/include/google
+          key: ${{ runner.os }}-protoc-3
+      
+      - name: Install Protocol Buffers Compiler
+        if: steps.cache-protoc.outputs.cache-hit != 'true'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y protobuf-compiler
+      
+      - name: Verify protoc installation
+        run: protoc --version
+      
+      - name: Checkout Wiki repository
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository }}.wiki
+          path: .wiki
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Install dependencies
+        run: npm install
+      
+      - name: Generate documentation
+        run: npm run docs
+      
+      - name: Commit and push wiki changes
+        run: |
+          cd .wiki
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Automatical update Wiki" && git push)
