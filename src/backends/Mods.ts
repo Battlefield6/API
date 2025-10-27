@@ -31,6 +31,12 @@ class Mods {
         this.connector = connector;
     }
 
+    /**
+     * List all available mods by given PlayElement id.
+     *
+     * @experimental
+     * @param playElementId
+     */
     public async list(playElementId: string): Promise<ListModDataVersionsResponse | null> {
         const bytes: Uint8Array             = ListModDataVersionsRequest.encode({ playElementId }).finish();
         const response: Uint8Array | null   = await REST.post(this.connector.getConfig().getURL('listModDataVersions'), bytes, {
@@ -47,6 +53,11 @@ class Mods {
         return ListModDataVersionsResponse.decode(response);
     }
 
+    /**
+     * Create a new mod version for given PlayElement id.
+     *
+     * @experimental
+     */
     public async create(playElementId: string): Promise<CreateModDataVersionResponse | null> {
         const bytes: Uint8Array             = CreateModDataVersionRequest.encode({ playElementId }).finish();
         const response: Uint8Array | null   = await REST.post(this.connector.getConfig().getURL('createModDataVersion'), bytes, {
