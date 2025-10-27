@@ -223,23 +223,20 @@ function generateClassDoc(cls, category = '') {
     const author = getJsDocTag(cls, 'author');
     const since = getJsDocTag(cls, 'since');
     const requires = getJsDocTag(cls, 'requires');
-    const experimental = getJsDocTag(cls, 'experimental');
+    const experimental = hasJsDocTag(cls, 'experimental');
 
     let clazz = false;
     let markdown = ''; //`# ${className}\n\n`;
 
-    if (description) {
+    if(description) {
         markdown += `${description}\n\n`;
         clazz = true;
     }
 
     if(experimental) {
         markdown += '> [!CAUTION]\n';
-        markdown += `> ${ICON_EXPERIMENTAL} This is **Experimental**!\n`;
-
-        if(item.includes('LABS')) {
-            specials.push('LABS');
-        }
+        markdown += `> ${ICON_EXPERIMENTAL} This is **Experimental**!\n\n`;
+        specials.push('LABS');
     }
 
     if(requires) {
@@ -291,7 +288,7 @@ function generateClassDoc(cls, category = '') {
             var methodOutput = '<details>';
 
             const methodName = method.getName();
-            const methodDesc = getJsDocComment(method);
+            let methodDesc = getJsDocComment(method);
             const isAsync = method.isAsync();
             const params = method.getParameters().map(p => {
                 const name = p.getName();
@@ -300,6 +297,11 @@ function generateClassDoc(cls, category = '') {
             }).join(', ');
 
             const returnType = cleanTypeString(method.getReturnType().getText(), true);
+
+            const experimental = hasJsDocTag(method, 'experimental');
+            if(experimental) {
+                methodDesc = ICON_EXPERIMENTAL + methodDesc;
+            }
 
             methodOutput += `<summary>${methodDesc}<pre lang="typescript">${methodName}(${params}): ${returnType}</pre></summary>`;
 
@@ -394,21 +396,46 @@ function generateEnumDoc(enumDecl) {
     //markdown += `## Values\n\n`;
 
     const members = enumDecl.getMembers();
-    markdown += '| Name | Exception | Description |\n';
-    markdown += '|------|------|-------------|\n';
+    let hasExceptions = false;
+
+    for(const member of members) {
+        if(hasExceptions) {
+            break;
+        }
+
+        if(member.getJsDocs().length > 0) {
+            if(hasJsDocTag(member, 'exception')) {
+                hasExceptions = true;
+                break;
+            }
+        }
+    }
+
+    if(hasExceptions) {
+        markdown += '| Name | Exception | Description |\n';
+        markdown += '|------|------|-------------|\n';
+    } else {
+        markdown += '| Name | Description |\n';
+        markdown += '|------|-------------|\n';
+    }
 
     for (const member of members) {
         const name = member.getName();
         const value = member.getValue();
         const memberDesc = getJsDocComment(member);
         const escapedDesc = escapeTableDescription(memberDesc) || '';
-        let exception = getJsDocTag(member, 'exception');
 
-        if(exception) {
-            exception = `\`${exception}\``;
+        if(hasExceptions) {
+            let exception = getJsDocTag(member, 'exception');
+
+            if(exception) {
+                exception = `\`${exception}\``;
+            }
+
+            markdown += `| \`${enumName}.${name}\` | ${exception} | ${escapedDesc} |\n`;
+        } else {
+            markdown += `| \`${enumName}.${name}\` | ${escapedDesc} |\n`;
         }
-
-        markdown += `| \`${enumName}.${name}\` | ${exception} | ${escapedDesc} |\n`;
     }
 
     return { name: enumName, content: markdown };
