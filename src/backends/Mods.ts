@@ -22,6 +22,7 @@ import REST from '../REST';
  * @class Mod
  * @category Backends
  * @requires VIP
+ * @experimental
  * @hideconstructor
  */
 class Mods {
