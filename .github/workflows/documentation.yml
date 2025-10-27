@@ -5,6 +5,9 @@ on:
     branches:
       - '**'
 
+permissions:
+  contents: write
+
 jobs:
   build-docs:
     runs-on: ubuntu-latest
@@ -62,9 +65,10 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
       
       - name: Generate documentation
-        run: npm run docs
+        run: npm run docs:generate
       
       - name: Commit and push wiki changes
         run: |
           cd .wiki
-          git diff --quiet && git diff --staged --quiet || echo "Changes already committed by docs script"
+          git add .
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Automatical update Wiki" && git push)
