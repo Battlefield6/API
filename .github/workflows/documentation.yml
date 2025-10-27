@@ -56,13 +56,15 @@ jobs:
       - name: Build TypeScript
         run: npm run build
       
+      - name: Configure Git for documentation
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+      
       - name: Generate documentation
         run: npm run docs
       
       - name: Commit and push wiki changes
         run: |
           cd .wiki
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add .
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Automatical update Wiki" && git push)
+          git diff --quiet && git diff --staged --quiet || echo "Changes already committed by docs script"
