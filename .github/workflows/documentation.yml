@@ -18,6 +18,12 @@ jobs:
         with:
           node-version: '24.1.0'
       
+      - name: Install Protocol Buffers Compiler
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y protobuf-compiler
+          protoc --version
+      
       - name: Checkout Wiki repository
         uses: actions/checkout@v4
         with:
