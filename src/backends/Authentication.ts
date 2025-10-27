@@ -18,6 +18,7 @@ import REST from '../REST';
  * @class Authentication
  * @category Backends
  * @hideconstructor
+ * @experimental
  * @ignore
  */
 class Authentication {

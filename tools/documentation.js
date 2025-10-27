@@ -13,6 +13,7 @@ const INDENT = '⠀';
 const ICON_MODEL = getIcon('Models.png');
 const ICON_BACKEND = getIcon('Backend.png');
 const ICON_ENUM = getIcon('Enumeration.png');
+const ICON_EXPERIMENTAL = getIcon('Experimental.png');
 
 // Initialize project
 const project = new Project({
@@ -222,6 +223,7 @@ function generateClassDoc(cls, category = '') {
     const author = getJsDocTag(cls, 'author');
     const since = getJsDocTag(cls, 'since');
     const requires = getJsDocTag(cls, 'requires');
+    const experimental = getJsDocTag(cls, 'experimental');
 
     let clazz = false;
     let markdown = ''; //`# ${className}\n\n`;
@@ -229,6 +231,15 @@ function generateClassDoc(cls, category = '') {
     if (description) {
         markdown += `${description}\n\n`;
         clazz = true;
+    }
+
+    if(experimental) {
+        markdown += '> [!CAUTION]\n';
+        markdown += `> ${ICON_EXPERIMENTAL} This is **Experimental**!\n`;
+
+        if(item.includes('LABS')) {
+            specials.push('LABS');
+        }
     }
 
     if(requires) {
@@ -549,6 +560,10 @@ function generateSidebar(backends, models, enums) {
                if(backend.special.indexOf('VIP') !== -1) {
                    sidebar += INDENT + INDENT + getIcon('VIP.png', 'Account requires VIP!');
                }
+
+                if(backend.special.indexOf('LABS') !== -1) {
+                    sidebar += INDENT + INDENT + getIcon('Experimental.png', 'This is an experimental feature!');
+                }
             }
 
             sidebar += '</p>';
@@ -630,6 +645,10 @@ function generateMain(backends, models, enums) {
             if(backend.special.length > 0) {
                 if(backend.special.indexOf('VIP') !== -1) {
                     core += INDENT + INDENT + getIcon('VIP.png', 'Account requires VIP!');
+                }
+
+                if(backend.special.indexOf('LABS') !== -1) {
+                    core += INDENT + INDENT + getIcon('Experimental.png', 'This is an experimental feature!');
                 }
             }
 
