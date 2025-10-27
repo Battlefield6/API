@@ -17,12 +17,23 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '24.1.0'
+          cache: 'npm'
+      
+      - name: Cache protoc
+        id: cache-protoc
+        uses: actions/cache@v4
+        with:
+          path: /usr/bin/protoc
+          key: ${{ runner.os }}-protoc-${{ hashFiles('**/package.json') }}
       
       - name: Install Protocol Buffers Compiler
+        if: steps.cache-protoc.outputs.cache-hit != 'true'
         run: |
           sudo apt-get update
           sudo apt-get install -y protobuf-compiler
-          protoc --version
+      
+      - name: Verify protoc installation
+        run: protoc --version
       
       - name: Checkout Wiki repository
         uses: actions/checkout@v4
