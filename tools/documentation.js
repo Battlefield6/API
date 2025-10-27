@@ -152,8 +152,8 @@ function formatParameters(method) {
     for(const param of params) {
         const name                  = param.getName();
         const type                  = cleanTypeString(param.getType().getText());
-        const optional      = param.isOptional() ? ' *(optional)*' : '';
-        const defaultValue  = param.getInitializer() ? ` (default: \`${param.getInitializer().getText()}\`)` : '';
+        const optional      = param.isOptional() ? ' <i>(optional)</i>' : '';
+        const defaultValue  = param.getInitializer() ? ` (default: <code>${param.getInitializer().getText()}</code>)` : '';
         const description   = getParamDescription(method, name) || '';
 
         data.push([

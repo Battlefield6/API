@@ -5,7 +5,7 @@
 
 /* Unit Tests */
 import assert from "node:assert";
-import test from'node:test';
+import test from 'node:test';
 
 /* Core */
 import { config } from 'dotenv';
@@ -15,7 +15,7 @@ config();
 
 const sessionId = process.env.SESSION;
 
-if(!sessionId) {
+if (!sessionId) {
     throw new Error('SESSION not set in .env file');
 }
 

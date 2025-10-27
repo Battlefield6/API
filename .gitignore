@@ -7,3 +7,7 @@ package-lock.json
 dist/
 .idea/misc.xml
 .idea/vcs.xml
+.idea/compiler.xml
+.idea/GrepConsole.xml
+.idea/jsLibraryMappings.xml
+.idea/protoeditor.xml
