@@ -43,8 +43,18 @@ jobs:
           path: .wiki
           token: ${{ secrets.GITHUB_TOKEN }}
       
-      - name: Install dependencies
-        run: npm install
+      - name: Install dependencies (without prepare script)
+        run: npm install --ignore-scripts
+      
+      - name: Generate proto files
+        run: npm run proto:generate
+      
+      - name: Create index.ts for generated files
+        run: |
+          echo "export * from './Main';" > src/generated/index.ts
+      
+      - name: Build TypeScript
+        run: npm run build
       
       - name: Generate documentation
         run: npm run docs
