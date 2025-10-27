@@ -23,6 +23,9 @@ class Experience {
         this.connector = connector;
     }
 
+    /**
+     * List all available experiences.
+     */
     public async list(limit: number = 10): Promise<ListExperiencesResponse | null> {
         const request = ListExperiencesRequest.fromPartial({
             filter: {
